@@ -23,8 +23,8 @@ public class StoreFragment extends Fragment {
             "Prints", "Photo Books", "Gifts", "Wall Art", "Phone Cases", "Calendars"
     } ;
     int[] gridViewImageId = {
-            R.drawable.photo_prints_4_6, R.drawable.photo_books, R.drawable.gifts,
-            R.drawable.wall_art, R.drawable.phone_case, R.drawable.calendar
+            R.drawable.photo_prints_4_6, R.drawable.photo_books_soon, R.drawable.gifts_soon,
+            R.drawable.wall_art_soon, R.drawable.phone_case_soon, R.drawable.calendar_soon
 
 
     };
