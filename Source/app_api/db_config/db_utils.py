@@ -1,5 +1,24 @@
 import time
 import pyodbc
+from db_config import config
+
+def db_connection():
+    sql_con = config.credentials[config.db_environment]
+    sql_con_str = """DRIVER=SQL Server;SERVER={server}; 
+                        PORT={port};DATABASE={db};
+                        UID={uid};PWD={pwd};
+                        PERSIST_SECURITY=false""".format(
+                                                            server=sql_con["host"],
+                                                            port=sql_con["port"],
+                                                            db=sql_con["database"],
+                                                            uid=sql_con["user"],
+                                                            pwd=sql_con["password"])
+
+
+    # Connection string QA Staging TABLE **START**
+    cnxnMS = pyodbc.connect(sql_con_str)
+    cursor = cnxnMS.cursor()
+    return cursor
 
 
 class DBManager:
@@ -19,16 +38,16 @@ class DBManager:
     def close(self):
         self.__connection.close()
 
-    def cursor(self, reset_connection=False, name=None):
+    def cursor(self, reset_connection=False):
         if reset_connection:
             self.reset_connection()
-            return self.__connection.cursor(name=name)
+            return self.__connection.cursor()
         try:
-            return self.__connection.cursor(name=name)
+            return self.__connection.cursor()
         except pyodbc.Error as e:
             if _is_conn_close_error(e):
                 self.reset_connection()
-                return self.__connection.cursor(name=name)
+                return self.__connection.cursor()
 
     def reset_connection(self):
         self.close()

@@ -1,14 +1,14 @@
 
 
-db_environment = "UAT"
+db_environment = "DEV"
 
 
 credentials = {
-    "UAT": {
-        "host": '',
-        "port": 0,
-        "database": '',
-        "user": '',
-        "password": ''
+    "DEV": {
+        "host": 'LAPTOP-U7SU6TM6\SQLEXPRESS',
+        "port": 1433,
+        "database": 'ofly',
+        "user": 'sa',
+        "password": 'welcome3#'
     }
 }
