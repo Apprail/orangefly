@@ -6,4 +6,8 @@ app_name = "login"
 
 urlpatterns = [
     path('', login_urls.login, name="login"),
+    path('register/', login_urls.create_accounts, name="create_accounts"),
+
+
+
 ]
