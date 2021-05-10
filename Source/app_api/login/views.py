@@ -28,7 +28,7 @@ def login(request):
             if check_user:
                 returnvals['status'] = 1
                 returnvals['message'] = "Successfully logged in"
-                #print(check_user)
+                print(check_user)
                 for i in check_user:
                     arr.append({"username": i[get_sql_column_index("user_id")],
                                 "password": i[get_sql_column_index("password")]})
