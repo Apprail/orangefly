@@ -7,7 +7,7 @@ app_name = "login"
 urlpatterns = [
     path('login/', login_urls.login, name="login"),
     path('register/', login_urls.create_accounts, name="create_accounts"),
-
+    path('resetpassword/', login_urls.resetpassword, name="resetpassword"),
 
 
 ]

@@ -1,12 +1,15 @@
 from __future__ import unicode_literals
+
+import smtplib
 import sys
 import os
 import json
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render
-from django.template.defaultfilters import floatformat
+from django.template.defaultfilters import floatformat, random
 from django.views.decorators.csrf import csrf_exempt
 from db_config.db_utils import *
+
 
 
 @csrf_exempt
@@ -73,8 +76,6 @@ def create_accounts(request):
             db.close()
             arr = []
             if check_user:
-
-                print(check_user)
                 for i in check_user:
                     create_account_returns['status'] = i[get_sql_column_index_ac("status")]
                     create_account_returns['message'] = i[get_sql_column_index_ac("message")]
@@ -101,3 +102,44 @@ def get_sql_column_index_ac(column_name):
                }
 
     return mapping[column_name]
+
+
+@csrf_exempt
+def resetpassword(request):
+    returns = {"status": 0, "message": "", "params": {}}
+    userid = request.POST.get('userid')
+    currentpassword = request.POST.get('currentpassword')
+    newpassword = request.POST.get('newpassword')
+
+    if request.method == "POST":
+        try:
+            db = db_connection()
+
+            check_user_query = """EXEC usp_resetpassword '{username}','{password}','{newpassword}'
+                                            """.format(username=userid, password=currentpassword,
+                                                       newpassword=newpassword)
+            print(check_user_query)
+            db.execute(check_user_query)
+            check_user = db.fetchall()
+            db.close()
+            arr = []
+            if check_user:
+
+                for i in check_user:
+                    returns['status'] = i[get_sql_column_index_ac("status")]
+                    returns['message'] = i[get_sql_column_index_ac("message")]
+                    arr.append({"username": i[get_sql_column_index_ac("user_id")],
+                                "firstname": i[get_sql_column_index_ac("first_name")],
+                                "email": i[get_sql_column_index_ac("email_id")]})
+                    # params = {"username": i[1], "password":i[2]}
+                    returns['params'] = arr
+
+            else:
+                returns['message'] = "Error in Reset password"
+        except Exception as e:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(str(exc_tb.tb_lineno), str(e))
+    return HttpResponse(json.dumps(returns))
+    # return HttpResponse(create_account_returns)
+
+
