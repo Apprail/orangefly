@@ -20,9 +20,10 @@ def login(request):
             # mix_query = """sp_GetGenealogyReportDetails '{curing_lot}'""".format(curing_lot=curing_lot)
             # check_user_query = """select * from users where user_id = '{uid}' and password = '{pwd}'
             #             """.format(uid=username, pwd=password)
-            check_user_query = """select * from users"""
+            check_user_query = """EXEC usp_login '{uid}' , '{pwd}'""".format(uid=username, pwd=password)
             db.execute(check_user_query)
             check_user = db.fetchall()
+            db.close()
             # print(check_user)
             arr = []
             if check_user:
@@ -30,8 +31,10 @@ def login(request):
                 returnvals['message'] = "Successfully logged in"
                 print(check_user)
                 for i in check_user:
+                    returnvals['status'] = i[get_sql_column_index_ac("status")]
+                    returnvals['message'] = i[get_sql_column_index_ac("message")]
                     arr.append({"username": i[get_sql_column_index("user_id")],
-                                "password": i[get_sql_column_index("password")]})
+                                "name": i[get_sql_column_index("username")]})
                 # params = {"username": i[1], "password":i[2]}
                 returnvals['params'] = arr
             else:
@@ -43,8 +46,10 @@ def login(request):
 
 
 def get_sql_column_index(column_name):
-    mapping = {"user_id": 1,
-               "password": 2
+    mapping = {"status": 0,
+               "message": 1,
+               "user_id": 2,
+               "username": 3
                }
     return mapping[column_name]
 
@@ -65,7 +70,7 @@ def create_accounts(request):
                                 """.format(firstName=firstname, lastName=lastname, email=email, password=password)
             db.execute(check_user_query)
             check_user = db.fetchall()
-
+            db.close()
             arr = []
             if check_user:
 
