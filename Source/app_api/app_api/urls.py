@@ -19,7 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from login import urls as login_urls
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', include(login_urls)),
+    path('', include(login_urls)),
+
 ]
