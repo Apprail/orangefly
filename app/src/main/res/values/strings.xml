@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Orangefly</string>
-    <string name="title_store">Store</string>
-    <string name="title_photo">Photos</string>
-    <string name="title_upload">Upload</string>
-    <string name="title_account">Account</string>
-    <string name="title_cart">Cart</string>
-</resources>
