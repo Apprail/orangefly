@@ -4,23 +4,83 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.orangefly.R;
+import com.example.orangefly.models.DefaultResponse;
+import com.example.orangefly.api.RetrofitClient;
+
+import org.jetbrains.annotations.NotNull;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
+
+    EditText username,password;
+    Button signin;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
+        username = root.findViewById(R.id.username);
+        password = root.findViewById(R.id.password);
+        signin = root.findViewById(R.id.btn_signin);
+
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                call_signin();
+            }
+        });
         return root;
+    }
+
+    private void call_signin() {
+        String uname = username.getText().toString().trim();
+        String pwd = password.getText().toString().trim();
+        if(uname.isEmpty()){
+            username.setError("Email/Mobile is required");
+            username.requestFocus();
+            return;
+        }
+        if (pwd.isEmpty()){
+            password.setError("Password is required");
+        }
+
+        Call<DefaultResponse> call =  RetrofitClient
+                .getInstance()
+                .getRetrofitApi()
+                .login(uname,pwd);
+
+        call.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<DefaultResponse> call, @NotNull Response<DefaultResponse> response) {
+                try{
+                    DefaultResponse dr = response.body();
+                    assert dr != null;
+                    if (dr.getStatus() == 1){
+                        Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
