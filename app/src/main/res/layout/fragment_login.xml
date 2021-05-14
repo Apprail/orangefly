@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -31,16 +32,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
                 android:background="@color/white"
-                android:hint="Mobile no."
+                android:hint="Email/Mobile"
                 android:imeOptions="actionNext"
-                android:maxLength="10"
-                android:inputType="number"/>
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            app:passwordToggleEnabled="true"
+            >
 
             <EditText
                 android:layout_width="match_parent"
@@ -57,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:id="@+id/btn_login_id"
+            android:id="@+id/btn_login"
             android:text="Sign In"
             android:layout_marginTop="30dp"/>
 

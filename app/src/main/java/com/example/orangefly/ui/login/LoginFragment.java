@@ -1,6 +1,9 @@
 package com.example.orangefly.ui.login;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,16 +28,19 @@ public class LoginFragment extends Fragment {
 
     EditText username,password;
     Button signin;
-
+    Context context;
+    ProgressDialog progressDialog;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_login, container, false);
-
+        context = getActivity();
         username = root.findViewById(R.id.username);
         password = root.findViewById(R.id.password);
-        signin = root.findViewById(R.id.btn_signin);
-
+        signin = root.findViewById(R.id.btn_login);
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +60,8 @@ public class LoginFragment extends Fragment {
         }
         if (pwd.isEmpty()){
             password.setError("Password is required");
+            password.requestFocus();
+            return;
         }
 
         Call<DefaultResponse> call =  RetrofitClient
@@ -61,12 +69,14 @@ public class LoginFragment extends Fragment {
                 .getRetrofitApi()
                 .login(uname,pwd);
 
+        progressDialog.show();
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
-            public void onResponse(@NotNull Call<DefaultResponse> call, @NotNull Response<DefaultResponse> response) {
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                progressDialog.dismiss();
                 try{
                     DefaultResponse dr = response.body();
-                    assert dr != null;
+                    Log.d("Response",String.valueOf(response.body()));
                     if (dr.getStatus() == 1){
                         Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_SHORT).show();
                     }else{
@@ -74,11 +84,13 @@ public class LoginFragment extends Fragment {
                     }
                 }catch (Exception e){
                     e.printStackTrace();
+                    Log.d("Exception-------",String.valueOf(e));
                 }
             }
 
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                progressDialog.dismiss();
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
