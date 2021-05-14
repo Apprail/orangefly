@@ -4,12 +4,13 @@ import smtplib
 import sys
 import os
 import json
+import datetime
 from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.conf import settings
 from django.shortcuts import render
 from django.template.defaultfilters import floatformat, random
 from django.views.decorators.csrf import csrf_exempt
 from db_config.db_utils import *
-
 
 
 @csrf_exempt
@@ -37,7 +38,9 @@ def login(request):
                     returnvals['status'] = i[get_sql_column_index_ac("status")]
                     returnvals['message'] = i[get_sql_column_index_ac("message")]
                     arr.append({"username": i[get_sql_column_index("user_id")],
-                                "name": i[get_sql_column_index("username")]})
+                                "name": i[get_sql_column_index("username")],
+                                "salt": i[get_sql_column_index("salt1")]
+                                })
                 # params = {"username": i[1], "password":i[2]}
                 returnvals['params'] = arr
             else:
@@ -45,6 +48,19 @@ def login(request):
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             print(str(exc_tb.tb_lineno), str(e))
+            # creating / opening a file
+            x = datetime.datetime.now()
+            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
+            f = open(logfilename, "a")
+            # writing  in the file
+            f.writelines("\n login : method : ")
+            f.writelines("\n---------------------------------------")
+            f.writelines("\n" + username)
+            f.writelines("\n")
+            f.writelines("\n" + str(e))
+            f.writelines("\n---------------------------------------")
+            f.close()
+
     return HttpResponse(json.dumps(returnvals))
 
 
@@ -52,7 +68,8 @@ def get_sql_column_index(column_name):
     mapping = {"status": 0,
                "message": 1,
                "user_id": 2,
-               "username": 3
+               "username": 3,
+               "salt": 4
                }
     return mapping[column_name]
 
@@ -68,9 +85,11 @@ def create_accounts(request):
             lastname = request.POST.get('lastname')
             email = request.POST.get('email')
             password = request.POST.get('password')
+            mobileno = request.POST.get('mobileno')
 
-            check_user_query = """EXEC usp_create_account '{firstName}','{lastName}','{email}','{password}'
-                                """.format(firstName=firstname, lastName=lastname, email=email, password=password)
+            check_user_query = """EXEC usp_create_account '{firstName}','{lastName}','{email}','{password}','{mobileno}'
+                                """.format(firstName=firstname, lastName=lastname, email=email, password=password,
+                                           mobileno=mobileno)
             db.execute(check_user_query)
             check_user = db.fetchall()
             db.close()
@@ -81,7 +100,9 @@ def create_accounts(request):
                     create_account_returns['message'] = i[get_sql_column_index_ac("message")]
                     arr.append({"username": i[get_sql_column_index_ac("user_id")],
                                 "firstname": i[get_sql_column_index_ac("first_name")],
-                                "email": i[get_sql_column_index_ac("email_id")]})
+                                "email": i[get_sql_column_index_ac("email_id")],
+                                "salt": i[get_sql_column_index_ac("salt")]
+                                })
                 # params = {"username": i[1], "password":i[2]}
                 create_account_returns['params'] = arr
             else:
@@ -89,6 +110,19 @@ def create_accounts(request):
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             print(str(exc_tb.tb_lineno), str(e))
+
+            # creating / opening a file
+            x = datetime.datetime.now()
+            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
+            f = open(logfilename, "a")
+            # writing  in the file
+            f.writelines("\n create_accounts : method : ")
+            f.writelines("\n---------------------------------------")
+            f.writelines("\n" + mobileno)
+            f.writelines("\n")
+            f.writelines("\n" + str(e))
+            f.writelines("\n---------------------------------------")
+            f.close()
     return HttpResponse(json.dumps(create_account_returns))
     # return HttpResponse(create_account_returns)
 
@@ -98,7 +132,8 @@ def get_sql_column_index_ac(column_name):
                "message": 1,
                "user_id": 2,
                "first_name": 3,
-               "email_id": 4
+               "email_id": 4,
+               "salt": 5
                }
 
     return mapping[column_name]
@@ -110,14 +145,15 @@ def resetpassword(request):
     userid = request.POST.get('userid')
     currentpassword = request.POST.get('currentpassword')
     newpassword = request.POST.get('newpassword')
+    salt = request.POST.get('salt')
 
     if request.method == "POST":
         try:
             db = db_connection()
 
-            check_user_query = """EXEC usp_resetpassword '{username}','{password}','{newpassword}'
+            check_user_query = """EXEC usp_resetpassword '{username}','{password}','{newpassword}','{salt}'
                                             """.format(username=userid, password=currentpassword,
-                                                       newpassword=newpassword)
+                                                       newpassword=newpassword, salt=salt)
             print(check_user_query)
             db.execute(check_user_query)
             check_user = db.fetchall()
@@ -130,7 +166,9 @@ def resetpassword(request):
                     returns['message'] = i[get_sql_column_index_ac("message")]
                     arr.append({"username": i[get_sql_column_index_ac("user_id")],
                                 "firstname": i[get_sql_column_index_ac("first_name")],
-                                "email": i[get_sql_column_index_ac("email_id")]})
+                                "email": i[get_sql_column_index_ac("email_id")],
+                                "salt": i[get_sql_column_index_ac("salt")]
+                                })
                     # params = {"username": i[1], "password":i[2]}
                     returns['params'] = arr
 
@@ -139,7 +177,68 @@ def resetpassword(request):
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             print(str(exc_tb.tb_lineno), str(e))
+            # creating / opening a file
+            x = datetime.datetime.now()
+            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
+            f = open(logfilename, "a")
+            # writing  in the file
+            f.writelines("\n resetpassword : method : ")
+            f.writelines("\n---------------------------------------")
+            f.writelines("\n" + userid)
+            f.writelines("\n")
+            f.writelines("\n" + str(e))
+            f.writelines("\n---------------------------------------")
+            f.close()
     return HttpResponse(json.dumps(returns))
     # return HttpResponse(create_account_returns)
 
 
+@csrf_exempt
+def logout(request):
+    returnvals = {"status": 0, "message": "", "params": {}}
+    if request.method == "POST":
+        try:
+            db = db_connection()
+            username = request.POST.get('username')
+            salt = request.POST.get('salt')
+            # mix_query = """sp_GetGenealogyReportDetails '{curing_lot}'""".format(curing_lot=curing_lot)
+            # check_user_query = """select * from users where user_id = '{uid}' and password = '{salt}'
+            #             """.format(uid=username, pwd=password)
+            check_user_query = """EXEC usp_logout '{uid}' , '{salt}'""".format(uid=username, salt=salt)
+            db.execute(check_user_query)
+            check_user = db.fetchall()
+            db.close()
+            # print(check_user)
+            arr = []
+            if check_user:
+                returnvals['status'] = 1
+                returnvals['message'] = "Successfully logged out"
+                print(check_user)
+                for i in check_user:
+                    returnvals['status'] = i[get_sql_column_index_ac("status")]
+                    returnvals['message'] = i[get_sql_column_index_ac("message")]
+                    arr.append({"username": i[get_sql_column_index("user_id")],
+                                "name": i[get_sql_column_index("username")],
+                                "salt": i[get_sql_column_index("salt")]
+                                })
+                # params = {"username": i[1], "password":i[2]}
+                returnvals['params'] = arr
+            else:
+                returnvals['message'] = "Invalid Credentials"
+        except Exception as e:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(str(exc_tb.tb_lineno), str(e))
+            # creating / opening a file
+            x = datetime.datetime.now()
+            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
+            f = open(logfilename, "a")
+            # writing  in the file
+            f.writelines("\n logout : method : ")
+            f.writelines("\n---------------------------------------")
+            f.writelines("\n" + username)
+            f.writelines("\n")
+            f.writelines("\n" + str(e))
+            f.writelines("\n---------------------------------------")
+            f.close()
+
+    return HttpResponse(json.dumps(returnvals))
