@@ -66,7 +66,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'app_api.wsgi.application'
-LOG_FILE = 'G:\\Project\APPRAIL\Errorlog'
+LOG_FILE = 'G:\\Project\APPRAIL\orangefly\Errorlog'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
