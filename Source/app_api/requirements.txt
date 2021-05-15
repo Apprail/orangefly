@@ -3,3 +3,5 @@ Django==3.2.2
 pyodbc==4.0.30
 pytz==2021.1
 sqlparse==0.4.1
+textmagic
+twilio

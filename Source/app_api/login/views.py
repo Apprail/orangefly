@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-import smtplib
 import sys
 import os
 import json
@@ -11,6 +10,7 @@ from django.shortcuts import render
 from django.template.defaultfilters import floatformat, random
 from django.views.decorators.csrf import csrf_exempt
 from db_config.db_utils import *
+from twilio.rest import Client
 
 
 @csrf_exempt
@@ -39,7 +39,7 @@ def login(request):
                     returnvals['message'] = i[get_sql_column_index_ac("message")]
                     arr.append({"username": i[get_sql_column_index("user_id")],
                                 "name": i[get_sql_column_index("username")],
-                                "salt": i[get_sql_column_index("salt1")]
+                                "salt": i[get_sql_column_index("salt")]
                                 })
                 # params = {"username": i[1], "password":i[2]}
                 returnvals['params'] = arr
