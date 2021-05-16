@@ -4,6 +4,7 @@ import sys
 import os
 import json
 import datetime
+from random import randint
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.conf import settings
 from django.shortcuts import render
@@ -242,3 +243,51 @@ def logout(request):
             f.close()
 
     return HttpResponse(json.dumps(returnvals))
+
+
+@csrf_exempt
+def sendotp(request):
+    returnvals = {"status": 0, "message": "", "params": {}}
+    if request.method == "POST":
+        try:
+            db = db_connection()
+            username = request.POST.get('username')
+            client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
+
+            number = random_with_N_digits(4)
+            print(number)
+
+            ''' Change the value of 'from' with the number 
+            received from Twilio and the value of 'to'
+            with the number in which you want to send message.'''
+            message = client.messages.create(
+                from_='+13203226026',
+                body='Your Orangefly OTP code is ' + str(number),
+                to='+91' + str(username)
+            )
+
+            print(message.sid)
+
+        except Exception as e:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(str(exc_tb.tb_lineno), str(e))
+            # creating / opening a file
+            x = datetime.datetime.now()
+            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
+            f = open(logfilename, "a")
+            # writing  in the file
+            f.writelines("\n logout : method : ")
+            f.writelines("\n---------------------------------------")
+            f.writelines("\n" + username)
+            f.writelines("\n")
+            f.writelines("\n" + str(e))
+            f.writelines("\n---------------------------------------")
+            f.close()
+
+    return HttpResponse(json.dumps(returnvals))
+
+
+def random_with_N_digits(n):
+    range_start = 10 ** (n - 1)
+    range_end = (10 ** n) - 1
+    return randint(range_start, range_end)
