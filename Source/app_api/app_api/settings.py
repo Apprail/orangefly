@@ -70,7 +70,6 @@ LOG_FILE = 'G:\\Project\APPRAIL\orangefly\Errorlog'
 ACCOUNT_SID = 'ACc0f727c6ee9e461bbd8ac2e04506b4a8'
 AUTH_TOKEN = '9163bdd65bb8b73f1e898f06b7c31d01'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
