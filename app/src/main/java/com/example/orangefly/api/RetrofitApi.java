@@ -10,7 +10,7 @@ import retrofit2.Call;
 public interface RetrofitApi {
 
     @FormUrlEncoded
-    @POST("login")
+    @POST("/login/")
     Call<DefaultResponse> login(
             @Field("username") String username,
             @Field("password") String password
