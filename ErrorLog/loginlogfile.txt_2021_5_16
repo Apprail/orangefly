@@ -42,3 +42,85 @@
 
 
 ---------------------------------------
+ logout : method : 
+---------------------------------------
+8825769746
+
+
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACc0f727c6ee9e461bbd8ac2e04506b4a8/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+---------------------------------------
+ logout : method : 
+---------------------------------------
+8825769746
+
+'ACc0f727c6ee9e461bbd8ac2e04506b4a8'
+---------------------------------------
+ logout : method : 
+---------------------------------------
+8825769746
+
+
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACc0f727c6ee9e461bbd8ac2e04506b4a8/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+---------------------------------------
+ logout : method : 
+---------------------------------------
+8825769746
+
+
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACc0f727c6ee9e461bbd8ac2e04506b4a8/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: The number  is unverified. Trial accounts cannot send messages to unverified numbers; verify  at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers.[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/21608[0m
+
+
+---------------------------------------
+ logout : method : 
+---------------------------------------
+8825769746
+
+
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACc0f727c6ee9e461bbd8ac2e04506b4a8/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: The number  is unverified. Trial accounts cannot send messages to unverified numbers; verify  at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers.[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/21608[0m
+
+
+---------------------------------------

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03ce0b74-3de2-4877-bb1f-cfa5995e4bf3" name="Default Changelist" comment="">
+    <list default="true" id="03ce0b74-3de2-4877-bb1f-cfa5995e4bf3" name="Default Changelist" comment="latest file">
+      <change beforePath="$PROJECT_DIR$/../../ErrorLog/loginlogfile.txt_2021_5_16" beforeDir="false" afterPath="$PROJECT_DIR$/../../ErrorLog/loginlogfile.txt_2021_5_16" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_api/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +43,21 @@
       <option name="presentableId" value="Default" />
       <updated>1620380028648</updated>
     </task>
+    <task id="LOCAL-00001" summary="latest file">
+      <created>1621162401682</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1621162401682</updated>
+    </task>
+    <task id="LOCAL-00002" summary="latest file">
+      <created>1621162423414</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1621162423414</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -53,5 +71,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="latest file" />
+    <option name="LAST_COMMIT_MESSAGE" value="latest file" />
   </component>
 </project>

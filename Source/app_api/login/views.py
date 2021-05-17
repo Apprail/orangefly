@@ -252,6 +252,10 @@ def sendotp(request):
         try:
             db = db_connection()
             username = request.POST.get('username')
+            # account_sid = os.environ['ACc0f727c6ee9e461bbd8ac2e04506b4a8']
+            # auth_token = os.environ['9163bdd65bb8b73f1e898f06b7c31d01']
+            # client = Client("ACc0f727c6ee9e461bbd8ac2e04506b4a8", "8e9b5062a9310bbae06a6613c10cb2af")
+
             client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
 
             number = random_with_N_digits(4)
