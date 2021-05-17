@@ -11,6 +11,7 @@ from django.shortcuts import render
 from django.template.defaultfilters import floatformat, random
 from django.views.decorators.csrf import csrf_exempt
 from db_config.db_utils import *
+from errorlog.error_log import *
 from twilio.rest import Client
 
 
@@ -47,20 +48,8 @@ def login(request):
             else:
                 returnvals['message'] = "Invalid Credentials"
         except Exception as e:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            print(str(exc_tb.tb_lineno), str(e))
-            # creating / opening a file
-            x = datetime.datetime.now()
-            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
-            f = open(logfilename, "a")
-            # writing  in the file
-            f.writelines("\n login : method : ")
-            f.writelines("\n---------------------------------------")
-            f.writelines("\n" + username)
-            f.writelines("\n")
-            f.writelines("\n" + str(e))
-            f.writelines("\n---------------------------------------")
-            f.close()
+            exc_type, exc_obj, exc_tb = sys.exc_info()            
+            developerLog("login","Method:login Line No:"+str(exc_tb.tb_lineno), str(e))
 
     return HttpResponse(json.dumps(returnvals))
 
@@ -110,20 +99,7 @@ def create_accounts(request):
                 create_account_returns['message'] = "Error in Account creation"
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            print(str(exc_tb.tb_lineno), str(e))
-
-            # creating / opening a file
-            x = datetime.datetime.now()
-            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
-            f = open(logfilename, "a")
-            # writing  in the file
-            f.writelines("\n create_accounts : method : ")
-            f.writelines("\n---------------------------------------")
-            f.writelines("\n" + mobileno)
-            f.writelines("\n")
-            f.writelines("\n" + str(e))
-            f.writelines("\n---------------------------------------")
-            f.close()
+            developerLog("login","Method:create_accounts Line No:"+str(exc_tb.tb_lineno), str(e))
     return HttpResponse(json.dumps(create_account_returns))
     # return HttpResponse(create_account_returns)
 
@@ -177,19 +153,7 @@ def resetpassword(request):
                 returns['message'] = "Error in Reset password"
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            print(str(exc_tb.tb_lineno), str(e))
-            # creating / opening a file
-            x = datetime.datetime.now()
-            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
-            f = open(logfilename, "a")
-            # writing  in the file
-            f.writelines("\n resetpassword : method : ")
-            f.writelines("\n---------------------------------------")
-            f.writelines("\n" + userid)
-            f.writelines("\n")
-            f.writelines("\n" + str(e))
-            f.writelines("\n---------------------------------------")
-            f.close()
+            developerLog("login","Method:resetpassword Line No:"+str(exc_tb.tb_lineno), str(e))
     return HttpResponse(json.dumps(returns))
     # return HttpResponse(create_account_returns)
 
@@ -228,19 +192,7 @@ def logout(request):
                 returnvals['message'] = "Invalid Credentials"
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            print(str(exc_tb.tb_lineno), str(e))
-            # creating / opening a file
-            x = datetime.datetime.now()
-            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
-            f = open(logfilename, "a")
-            # writing  in the file
-            f.writelines("\n logout : method : ")
-            f.writelines("\n---------------------------------------")
-            f.writelines("\n" + username)
-            f.writelines("\n")
-            f.writelines("\n" + str(e))
-            f.writelines("\n---------------------------------------")
-            f.close()
+            developerLog("login","Method:logout Line No:"+str(exc_tb.tb_lineno), str(e))
 
     return HttpResponse(json.dumps(returnvals))
 
@@ -274,19 +226,7 @@ def sendotp(request):
 
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            print(str(exc_tb.tb_lineno), str(e))
-            # creating / opening a file
-            x = datetime.datetime.now()
-            logfilename = settings.LOG_FILE + "\loginlogfile.txt_" + str(x.year) + "_" + str(x.month) + "_" + str(x.day)
-            f = open(logfilename, "a")
-            # writing  in the file
-            f.writelines("\n logout : method : ")
-            f.writelines("\n---------------------------------------")
-            f.writelines("\n" + username)
-            f.writelines("\n")
-            f.writelines("\n" + str(e))
-            f.writelines("\n---------------------------------------")
-            f.close()
+            developerLog("login","Method:sendotp Line No:"+str(exc_tb.tb_lineno), str(e))
 
     return HttpResponse(json.dumps(returnvals))
 
