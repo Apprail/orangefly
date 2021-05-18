@@ -1,0 +1,152 @@
+*****2021-05-18 10:43:04.938282*****
+Method:login Line No:44:'salt1'
+********************End***************************2021-05-18 10:50:48.502388*****
+Method:sendotp Line No:219:
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACc0f727c6ee9e461bbd8ac2e04506b4a8/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authenticate[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+*********************End**************************2021-05-18 11:13:51.849686*****
+Method:sendotp Line No:219:
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/AC2a03017a9e545f3dff305a69f99bb080/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: The From phone number +13203226026 is not a valid, SMS-capable inbound phone number or short code for your account.[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/21606[0m
+
+
+*********************End**************************2021-05-18 11:22:56.835560*****
+Method:sendotp Line No:219:
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/AC2a03017a9e545f3dff305a69f99bb080/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: The From phone number +13203226026 is not a valid, SMS-capable inbound phone number or short code for your account.[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/21606[0m
+
+
+*********************End**************************2021-05-18 11:31:41.274975*****
+Method:sendotp Line No:219:
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/AC2a03017a9e545f3dff305a69f99bb080/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: The From phone number +13203226026 is not a valid, SMS-capable inbound phone number or short code for your account.[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/21606[0m
+
+
+*********************End**************************2021-05-18 11:32:04.320981*****
+Method:sendotp Line No:219:
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/AC2a03017a9e545f3dff305a69f99bb080/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: The From phone number +13203226026 is not a valid, SMS-capable inbound phone number or short code for your account.[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/21606[0m
+
+
+*********************End**************************2021-05-18 12:01:52.762907*****
+Method:sendotp Line No:234:('42000', '[42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Error converting data type nvarchar to int. (8114) (SQLExecDirectW)')
+*********************End**************************2021-05-18 12:17:25.222845*****
+Method:sendotp Line No:236:name 'smsid' is not defined
+*********************End**************************2021-05-18 12:36:27.087561*****
+Method:sendotp Line No:223:
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACc0f727c6ee9e461bbd8ac2e04506b4a8/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: The number  is unverified. Trial accounts cannot send messages to unverified numbers; verify  at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers.[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/21608[0m
+
+
+*********************End**************************2021-05-18 13:08:54.411661*****
+Method:sendotp Line No:327:[WinError 10061] No connection could be made because the target machine actively refused it
+*********************End**************************2021-05-18 13:11:40.416731*****
+Method:sendotp Line No:298:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:12:23.840360*****
+Method:sendotp Line No:327:[WinError 10061] No connection could be made because the target machine actively refused it
+*********************End**************************2021-05-18 13:13:03.456390*****
+Method:sendotp Line No:327:[WinError 10061] No connection could be made because the target machine actively refused it
+*********************End**************************2021-05-18 13:15:20.600402*****
+Method:sendotp Line No:298:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:17:29.037377*****
+Method:sendotp Line No:327:[WinError 10061] No connection could be made because the target machine actively refused it
+*********************End**************************2021-05-18 13:18:06.809827*****
+Method:sendotp Line No:298:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:22:16.858511*****
+Method:sendotp Line No:298:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:23:23.392295*****
+Method:sendotp Line No:298:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:25:48.233244*****
+Method:sendotp Line No:298:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:34:35.016283*****
+Method:sendotp Line No:301:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:35:50.632336*****
+Method:sendotp Line No:301:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:36:29.636962*****
+Method:sendotp Line No:301:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:39:32.763499*****
+Method:sendotp Line No:295:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:45:47.346066*****
+Method:sendotp Line No:295:No results.  Previous SQL was not a query.
+*********************End**************************2021-05-18 13:51:30.057006*****
+Method:sendotp Line No:311:'RandomString'
+*********************End**************************2021-05-18 13:51:53.490427*****
+Method:sendotp Line No:311:'RandomString'
+*********************End**************************2021-05-18 13:52:35.754599*****
+Method:sendotp Line No:311:'RandomString'
+*********************End**************************2021-05-18 13:53:16.656310*****
+Method:sendotp Line No:311:row indices must be integers, not str
+*********************End**************************2021-05-18 13:53:31.390720*****
+Method:sendotp Line No:311:row indices must be integers, not str
+*********************End**************************2021-05-18 18:10:10.286257*****
+Method:sendotp Line No:224:
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/ACc0f727c6ee9e461bbd8ac2e04506b4a8/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: The number  is unverified. Trial accounts cannot send messages to unverified numbers; verify  at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers.[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/21608[0m
+
+
+*********************End*********************

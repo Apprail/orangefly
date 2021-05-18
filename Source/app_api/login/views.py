@@ -4,6 +4,7 @@ import sys
 import os
 import json
 import datetime
+import smtplib
 from random import randint
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.conf import settings
@@ -48,8 +49,8 @@ def login(request):
             else:
                 returnvals['message'] = "Invalid Credentials"
         except Exception as e:
-            exc_type, exc_obj, exc_tb = sys.exc_info()            
-            developerLog("login","Method:login Line No:"+str(exc_tb.tb_lineno), str(e))
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            developerLog("login", "Method:login Line No:" + str(exc_tb.tb_lineno), str(e))
 
     return HttpResponse(json.dumps(returnvals))
 
@@ -99,7 +100,7 @@ def create_accounts(request):
                 create_account_returns['message'] = "Error in Account creation"
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            developerLog("login","Method:create_accounts Line No:"+str(exc_tb.tb_lineno), str(e))
+            developerLog("login", "Method:create_accounts Line No:" + str(exc_tb.tb_lineno), str(e))
     return HttpResponse(json.dumps(create_account_returns))
     # return HttpResponse(create_account_returns)
 
@@ -153,7 +154,7 @@ def resetpassword(request):
                 returns['message'] = "Error in Reset password"
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            developerLog("login","Method:resetpassword Line No:"+str(exc_tb.tb_lineno), str(e))
+            developerLog("login", "Method:resetpassword Line No:" + str(exc_tb.tb_lineno), str(e))
     return HttpResponse(json.dumps(returns))
     # return HttpResponse(create_account_returns)
 
@@ -192,7 +193,7 @@ def logout(request):
                 returnvals['message'] = "Invalid Credentials"
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            developerLog("login","Method:logout Line No:"+str(exc_tb.tb_lineno), str(e))
+            developerLog("login", "Method:logout Line No:" + str(exc_tb.tb_lineno), str(e))
 
     return HttpResponse(json.dumps(returnvals))
 
@@ -201,32 +202,81 @@ def logout(request):
 def sendotp(request):
     returnvals = {"status": 0, "message": "", "params": {}}
     if request.method == "POST":
+
         try:
-            db = db_connection()
             username = request.POST.get('username')
+            otp_type = request.POST.get('otp_type')
+            mode = str(1)
+
+            db = db_connection()
+
+            check_user_query_User = """select user_id from users where mobile_no = '{uid}' and active = '1'
+                                                           """.format(uid=username)
+            db.execute(check_user_query_User)
+            check_user_ = db.fetchall()
+            db.close()
+
+            if not check_user_:
+                returnvals["message"] = "You are not authorized user"
+                return HttpResponse(json.dumps(returnvals))
+
+            db = db_connection()
+
+            # smsid = request.POST.get('smsid')
+
             # account_sid = os.environ['ACc0f727c6ee9e461bbd8ac2e04506b4a8']
             # auth_token = os.environ['9163bdd65bb8b73f1e898f06b7c31d01']
             # client = Client("ACc0f727c6ee9e461bbd8ac2e04506b4a8", "8e9b5062a9310bbae06a6613c10cb2af")
 
             client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
 
-            number = random_with_N_digits(4)
-            print(number)
+            otpcode = random_with_N_digits(4)
+            print(otpcode)
 
             ''' Change the value of 'from' with the number 
             received from Twilio and the value of 'to'
             with the number in which you want to send message.'''
             message = client.messages.create(
                 from_='+13203226026',
-                body='Your Orangefly OTP code is ' + str(number),
+                body='Your Orangefly OTP code is ' + str(otpcode),
                 to='+91' + str(username)
             )
 
-            print(message.sid)
+            if message.sid:
+                smsid = message.sid
+                print(message.sid)
+                check_user_query = """EXEC usp_otp '{uid}' , '{otpcode}','{otp_type}','{mode}','{sid}'""".format(
+                    uid=username,
+                    otpcode=otpcode,
+                    otp_type=otp_type,
+                    mode=mode,
+                    sid=smsid)
+                db.execute(check_user_query)
+                check_user = db.fetchall()
+                db.close()
+                # print(check_user)
+                arr = []
+                if check_user:
+                    returnvals['status'] = 1
+                    returnvals['message'] = "Successfully logged out"
+                    print(check_user)
+                    for i in check_user:
+                        returnvals['status'] = i[get_sql_column_index_ac("status")]
+                        returnvals['message'] = i[get_sql_column_index_ac("message")]
+                        arr.append({"username": i[get_sql_column_index("user_id")],
+                                    "name": i[get_sql_column_index("username")],
+                                    "salt": i[get_sql_column_index("salt")]
+                                    })
+                    # params = {"username": i[1], "password":i[2]}
+                    returnvals['params'] = arr
+                else:
+                    returnvals['message'] = "Invalid Credentials"
+            else:
+                returnvals['message'] = "Error in message service"
 
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            developerLog("login","Method:sendotp Line No:"+str(exc_tb.tb_lineno), str(e))
+            developerLog("login", "Method:sendotp Line No:" + str(exc_tb.tb_lineno), str(e))
 
     return HttpResponse(json.dumps(returnvals))
 
@@ -235,3 +285,70 @@ def random_with_N_digits(n):
     range_start = 10 ** (n - 1)
     range_end = (10 ** n) - 1
     return randint(range_start, range_end)
+
+
+@csrf_exempt
+def verifyotp(request):
+    returnvals = {"status": 0, "message": "", "params": {}}
+    if request.method == "POST":
+        try:
+            username = request.POST.get('username')
+            otpcode = request.POST.get('otpcode')
+            otp_type = request.POST.get('otp_type')
+            mode = str(2)
+            smsid = request.POST.get('smsid')
+            db = db_connection()
+
+            check_user_query = """EXEC usp_otp '{uid}' , '{otpcode}','{otp_type}','{mode}','{sid}'
+                                """.format(uid=username,
+                                           otpcode=otpcode,
+                                           otp_type=otp_type,
+                                           mode=mode,
+                                           sid=smsid)
+
+            db.execute(check_user_query)
+            check_user = db.fetchall()
+            db.close()
+
+            arr = []
+            pwd = ''
+            status = ''
+            if check_user:
+                # returnvals['status'] = 1
+                # returnvals['message'] = "Successfully logged out"
+
+                for i in check_user:
+                    returnvals['status'] = i[get_sql_column_index_ac("status")]
+                    returnvals['message'] = i[get_sql_column_index_ac("message")]
+                    arr.append({"username": i[get_sql_column_index("user_id")],
+                                "name": i[get_sql_column_index("username")],
+                                "salt": i[get_sql_column_index("salt")]
+                                })
+                    pwd = i[5]
+                    status = i[0]
+                    print(pwd)
+                # params = {"username": i[1], "password":i[2]}
+                returnvals['params'] = arr
+                print(returnvals)
+                if status == str(1):
+                    client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
+
+                    ''' Change the value of 'from' with the number 
+                    received from Twilio and the value of 'to'
+                    with the number in which you want to send message.'''
+                    message = client.messages.create(
+                        from_='+13203226026',
+                        body='Your Orangefly Reset password code is ' + str(pwd),
+                        to='+91' + str(username)
+                    )
+                    print("sms sent")
+                else:
+                    print("no sms")
+            else:
+                returnvals['status'] = 0
+                returnvals['message'] = "Error while verify OTP."
+        except Exception as e:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            developerLog("login", "Method:sendotp Line No:" + str(exc_tb.tb_lineno), str(e))
+
+    return HttpResponse(json.dumps(returnvals))
