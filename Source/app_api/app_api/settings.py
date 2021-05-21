@@ -69,11 +69,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app_api.wsgi.application'
 LOG_FILE = 'G:\\Project\APPRAIL\orangefly\Errorlog'
-ACCOUNT_SID = 'ACc0f727c6ee9e461bbd8ac2e04506b4a8'
-AUTH_TOKEN = 'cee527f1ce0231b6c6e7bbe4d60b6f1d'
-
-ACCOUNT_SID_TEST = 'AC2a03017a9e545f3dff305a69f99bb080'
-AUTH_TOKEN_TEST = '4c328325b14d899337fe322eb727f15e'
+SMS_SETTING = 'LIVE'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

@@ -220,65 +220,104 @@ def sendotp(request):
                 returnvals["message"] = "You are not authorized user"
                 return HttpResponse(json.dumps(returnvals))
 
-            db = db_connection()
-
             # smsid = request.POST.get('smsid')
-
-            # account_sid = os.environ['ACc0f727c6ee9e461bbd8ac2e04506b4a8']
-            # auth_token = os.environ['9163bdd65bb8b73f1e898f06b7c31d01']
-            # client = Client("ACc0f727c6ee9e461bbd8ac2e04506b4a8", "8e9b5062a9310bbae06a6613c10cb2af")
-
-            client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
-
-            otpcode = random_with_N_digits(4)
-            print(otpcode)
-
-            ''' Change the value of 'from' with the number 
-            received from Twilio and the value of 'to'
-            with the number in which you want to send message.'''
-            message = client.messages.create(
-                from_='+13203226026',
-                body='Your Orangefly OTP code is ' + str(otpcode),
-                to='+91' + str(username)
-            )
-
-            if message.sid:
-                smsid = message.sid
-                print(message.sid)
-                check_user_query = """EXEC usp_otp '{uid}' , '{otpcode}','{otp_type}','{mode}','{sid}'""".format(
-                    uid=username,
-                    otpcode=otpcode,
-                    otp_type=otp_type,
-                    mode=mode,
-                    sid=smsid)
-                db.execute(check_user_query)
-                check_user = db.fetchall()
-                db.close()
-                # print(check_user)
-                arr = []
-                if check_user:
-                    returnvals['status'] = 1
-                    returnvals['message'] = "Successfully logged out"
-                    print(check_user)
-                    for i in check_user:
-                        returnvals['status'] = i[get_sql_column_index_ac("status")]
-                        returnvals['message'] = i[get_sql_column_index_ac("message")]
-                        arr.append({"username": i[get_sql_column_index("user_id")],
-                                    "name": i[get_sql_column_index("username")],
-                                    "salt": i[get_sql_column_index("salt")]
-                                    })
-                    # params = {"username": i[1], "password":i[2]}
-                    returnvals['params'] = arr
-                else:
-                    returnvals['message'] = "Invalid Credentials"
-            else:
-                returnvals['message'] = "Error in message service"
+            returnvals = one_time_password(settings.SMS_SETTING, username, otp_type, mode, '')
+            print(returnvals)
 
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             developerLog("login", "Method:sendotp Line No:" + str(exc_tb.tb_lineno), str(e))
 
     return HttpResponse(json.dumps(returnvals))
+
+
+def one_time_password(input, username, otp_type, mode, sms_id):
+    try:
+
+        returnvals = {"status": 0, "message": "", "params": {}}
+
+        db = db_connection()
+
+        check_user_query_sms = """select account_sid,auth_token,sender_mobile_no from sms_setting where type = '{type}' 
+                                    and active = '1'""".format(type=input)
+
+        print(check_user_query_sms)
+        db.execute(check_user_query_sms)
+        check_sms = db.fetchall()
+        db.close()
+        AUTH_SID = ''
+        AUTH_TOKEN = ''
+        sender_mobile_no = ''
+        if not check_sms:
+            returnvals["message"] = "SMS setting invalid"
+            return HttpResponse(json.dumps(returnvals))
+        else:
+            for i in check_sms:
+                AUTH_SID = i[0]
+                AUTH_TOKEN = i[1]
+                sender_mobile_no = i[2]
+
+        if not AUTH_SID and not AUTH_TOKEN and not sender_mobile_no:
+            returnvals["message"] = "SMS setting invalid"
+            return HttpResponse(json.dumps(returnvals))
+
+        client = Client(AUTH_SID, AUTH_TOKEN)
+
+        otpcode = random_with_N_digits(4)
+        print(otpcode)
+
+        ''' Change the value of 'from' with the number 
+        received from Twilio and the value of 'to'
+        with the number in which you want to send message.'''
+        message = client.messages.create(
+            from_=sender_mobile_no,
+            body='Your Orangefly OTP code is ' + str(otpcode),
+            to='+91' + str(username)
+        )
+        returnvals = one_time_password_DB(message.sid, username, otpcode, otp_type, mode)
+    except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        developerLog("login", "Method:one_time_password Line No:" + str(exc_tb.tb_lineno), str(e))
+
+    return returnvals
+
+
+def one_time_password_DB(sid, username, otpcode, otp_type, mode):
+    returnvals = {"status": 0, "message": "", "params": {}}
+    if sid:
+        sms_id = sid
+        print(sid)
+        db = db_connection()
+        check_user_query = """EXEC usp_otp '{uid}' , '{otpcode}','{otp_type}','{mode}','{sid}'""".format(
+            uid=username,
+            otpcode=otpcode,
+            otp_type=otp_type,
+            mode=mode,
+            sid=sms_id)
+        db.execute(check_user_query)
+        check_user = db.fetchall()
+        db.close()
+        # print(check_user)
+        arr = []
+        if check_user:
+            returnvals['status'] = 1
+            returnvals['message'] = "Successfully logged out"
+            print(check_user)
+            for i in check_user:
+                returnvals['status'] = i[get_sql_column_index_ac("status")]
+                returnvals['message'] = i[get_sql_column_index_ac("message")]
+                arr.append({"username": i[get_sql_column_index("user_id")],
+                            "name": i[get_sql_column_index("username")],
+                            "salt": i[get_sql_column_index("salt")]
+                            })
+            # params = {"username": i[1], "password":i[2]}
+            returnvals['params'] = arr
+        else:
+            returnvals['message'] = "Invalid Credentials"
+    else:
+        returnvals['message'] = "Error in message service"
+
+    return returnvals
 
 
 def random_with_N_digits(n):
