@@ -370,13 +370,40 @@ def verifyotp(request):
                 returnvals['params'] = arr
                 print(returnvals)
                 if status == str(1):
-                    client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
+
+                    db = db_connection()
+
+                    check_user_query_sms = """select account_sid,auth_token,sender_mobile_no from sms_setting where type = '{type}' 
+                                                and active = '1'""".format(type=settings.SMS_SETTING)
+
+                    print(check_user_query_sms)
+                    db.execute(check_user_query_sms)
+                    check_sms = db.fetchall()
+                    db.close()
+                    AUTH_SID = ''
+                    AUTH_TOKEN = ''
+                    sender_mobile_no = ''
+                    if not check_sms:
+                        returnvals["message"] = "SMS setting invalid"
+                        return HttpResponse(json.dumps(returnvals))
+                    else:
+                        for i in check_sms:
+                            AUTH_SID = i[0]
+                            AUTH_TOKEN = i[1]
+                            sender_mobile_no = i[2]
+
+                    if not AUTH_SID and not AUTH_TOKEN and not sender_mobile_no:
+                        returnvals["status"] = "SMS setting invalid"
+                        returnvals["message"] = "SMS setting invalid"
+                        return HttpResponse(json.dumps(returnvals))
+
+                    client = Client(AUTH_SID, AUTH_TOKEN)
 
                     ''' Change the value of 'from' with the number 
                     received from Twilio and the value of 'to'
                     with the number in which you want to send message.'''
                     message = client.messages.create(
-                        from_='+13203226026',
+                        from_=sender_mobile_no,
                         body='Your Orangefly Reset password code is ' + str(pwd),
                         to='+91' + str(username)
                     )

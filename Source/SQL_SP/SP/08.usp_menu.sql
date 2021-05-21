@@ -6,7 +6,7 @@ GO
 -- Author:		ARULMANI S
 -- Create date: 21MAY2020
 -- Description:	Get Menu '' ,''
--- SQL:BatchCompleted	EXEC usp_menu 'rizia.arul@gmail.com','E179A1B0-48D2-48BD-838C-301ADB67BE1C','1'
+-- SQL:BatchCompleted	EXEC usp_menu 'rizia.arul@gmail.com','E179A1B0-48D2-48BD-838C-301ADB67BE1C','0'
                                             		
 
 -- =============================================

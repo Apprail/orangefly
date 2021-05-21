@@ -12,8 +12,8 @@ GO
 -- =============================================
 CREATE PROCEDURE usp_resetpassword
 	@username	NVARCHAR(200),
-	@password NVARCHAR(4000),
-	@newpassword NVARCHAR(4000),
+	@password VARCHAR(50),
+	@newpassword VARCHAR(50),
 	@authtoken NVARCHAR(MAX)
 
 AS
@@ -25,26 +25,26 @@ BEGIN
 
 	 DECLARE @salt UNIQUEIDENTIFIER=NEWID()
     -- Insert statements for procedure here
-	IF NOT EXISTS (SELECT [user_id] FROM users WHERE email_id=@username AND active=1)
+	IF NOT EXISTS (SELECT [user_id] FROM users WHERE (email_id=@username OR mobile_no=@username) AND active=1)
 	BEGIN
 	
 		SELECT '0' status,'Invalid Username' message ,'' [user_id],'' first_name ,'' email_id, '' salt
-		update users set login_attempt=1 where email_id=@username and active=1
+		update users set login_attempt=1 where (email_id=@username OR mobile_no=@username) and active=1
 		return -1
 	END
-	ELSE IF NOT EXISTS (SELECT [user_id] FROM users WHERE email_id=@username AND active=1 and password= HASHBYTES('SHA2_512', @password))
+	ELSE IF NOT EXISTS (SELECT [user_id] FROM users WHERE (email_id=@username OR mobile_no=@username) AND active=1 and password= HASHBYTES('SHA2_512', @password))
 	BEGIN
 	
 		SELECT '0' status,'Invalid Passowrd' message,'' [user_id],'' first_name ,'' email_id , '' salt
-		update users set login_attempt=1 where email_id=@username and active=1
+		update users set login_attempt=1 where (email_id=@username OR mobile_no=@username) and active=1
 		return -1
 	END
 	ELSE 
 	BEGIN
 		SELECT '1' status,'Password reset successfully' message,[user_id],CONCAT(first_name, ' ' ,last_name) first_name,email_id ,salt
-		from users where email_id=@username AND active=1 and password= HASHBYTES('SHA2_512', @password)
+		from users where (email_id=@username OR mobile_no=@username) AND active=1 and password= HASHBYTES('SHA2_512', @password)
 
-		UPDATE users set password=HASHBYTES('SHA2_512', @newpassword) , modified_by=@username,salt=@salt where active=1 and email_id=@username 
+		UPDATE users set password=HASHBYTES('SHA2_512', @newpassword) , modified_by=@username,salt=@salt where active=1 and (email_id=@username OR mobile_no=@username)
 		
 
 	END

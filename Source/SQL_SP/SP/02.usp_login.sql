@@ -6,10 +6,11 @@ GO
 -- Author:		ARULMANI S
 -- Create date: 10MAY2020
 -- Description:	login '' ,''
+-- USP_LOGIN '9789908010','9#2*9D2L9E'
 -- =============================================
 CREATE PROCEDURE usp_login
 	@username	NVARCHAR(200),
-	@password NVARCHAR(4000)
+	@password VARCHAR(50)
 
 AS
 BEGIN

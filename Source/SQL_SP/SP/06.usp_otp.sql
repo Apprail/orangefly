@@ -20,7 +20,16 @@ CREATE PROCEDURE usp_otp
 
 AS
 BEGIN
+
+DECLARE @userid VARCHAR(50)
 	SET NOCOUNT ON;
+	SET @userid=(SELECT [user_id] FROM users where active=1 and (email_id=@username OR mobile_no=@username))
+
+	if ISNULL(@userid,'')=''
+	BEGIN
+		SELECT '0' status,'You are not authorized user' message ,'' [user_id],'' username , '' salt
+		return 1
+	END
 	IF @mode='1'
 	BEGIN
 
@@ -33,19 +42,21 @@ BEGIN
 		END
 		ELSE
 		BEGIN
+
+		
 			
 			INSERT INTO otp (fk_user_id,otp_type,otp_status,created_by,created_date,active,otp_code , sms_id)
-			SELECT @username , @otp_type , 'P',@username , GETDATE(),1,@otpcode,@smsid
+			SELECT @userid , @otp_type , 'P',@username , GETDATE(),1,@otpcode,@smsid
 
 			SELECT '1' status,'OTP sent to your register mobile no.' + LEFT(@username, 2) + 'XXXXXX' + RIGHT(@username, 2)  message ,'' [user_id],'' username , @smsid salt
 		END
 	END
 	ELSE IF @mode='2'
 	BEGIN
-		IF EXISTS (select * from otp where active=1 and fk_user_id=@username and sms_id=@smsid and otp_code=@otpcode and otp_status='P')
+		IF EXISTS (select * from otp where active=1 and fk_user_id=@userid and sms_id=@smsid and otp_code=@otpcode and otp_status='P')
 		BEGIN
 
-			UPDATE otp SET otp_status='V' where active=1 and fk_user_id=@username and sms_id=@smsid and otp_code=@otpcode and otp_status='P'
+			UPDATE otp SET otp_status='V' where active=1 and fk_user_id=@userid and sms_id=@smsid and otp_code=@otpcode and otp_status='P'
 
 			declare @LENGTH INT,@CharPool varchar(26),@PoolLength varchar(26),@LoopCount  INT  
 DECLARE @RandomString VARCHAR(10),@CHARPOOLINT VARCHAR(9)  
@@ -71,7 +82,7 @@ SET @RandomString = ''
     SET @LOOPCOUNT = 0    
     -- @RandomString 
 
-			UPDATE users set password= HASHBYTES('SHA2_512', @RandomString) where active=1 and mobile_no=@username
+			UPDATE users set password= HASHBYTES('SHA2_512', @RandomString) where active=1 and (mobile_no=@username OR email_id=@username)
 
 			SELECT '1' status,'OTP Verified successfully' message ,'' [user_id],'' username , @smsid salt ,@RandomString RandomString
 		END
