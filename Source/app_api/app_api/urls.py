@@ -18,10 +18,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from login import urls as login_urls
+from comman import urls as comman_urls
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(login_urls)),
+    path('', include(comman_urls)),
 
 ]

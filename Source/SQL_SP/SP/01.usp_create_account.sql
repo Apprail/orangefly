@@ -44,9 +44,9 @@ SET @result = SUBSTRING(@chars, CAST((RAND() * LEN(@chars)) AS INT) + 1, 1)
 	IF NOT EXISTS (SELECT [user_id] FROM users WHERE (email_id=@email OR mobile_no=@mobileno) AND active=1)
 	BEGIN
 	
-		INSERT INTO users ( [user_id], [password],email_id,first_name,last_name,active,created_by,created_date,salt,mobile_no)
+		INSERT INTO users ( [user_id], [password],email_id,first_name,last_name,active,created_by,created_date,salt,mobile_no,role_id)
 		SELECT  CONCAT(@firstName,YEAR(GETDATE()),MONTH(GETDATE()),DAY(GETDATE()),@result), HASHBYTES('SHA2_512', @password),@email,@firstName,@lastName,1,'Self',GETDATE(),@salt
-		,@mobileno
+		,@mobileno,'U0001'
 
 		SELECT  '1' status,'Account created successfully' message 
 		, user_id ,first_name ,email_id,salt

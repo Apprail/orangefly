@@ -1,5 +1,6 @@
 
-
+truncate table roles
+GO
 insert into roles (roles_name
 ,roles_id
 ,created_by

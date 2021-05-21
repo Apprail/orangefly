@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03ce0b74-3de2-4877-bb1f-cfa5995e4bf3" name="Default Changelist" comment="latest file">
+      <change afterPath="$PROJECT_DIR$/comman/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQL_SP/SP/01.usp_create_account.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL_SP/SP/01.usp_create_account.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQL_SP/Script/01.Roles insert script.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL_SP/Script/01.Roles insert script.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQL_SP/Script/02.screen insert script.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL_SP/Script/02.screen insert script.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQL_SP/Script/03.menu.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL_SP/Script/03.menu.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQL_SP/Script/04.sms_setting Insert script.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL_SP/Script/04.sms_setting Insert script.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_api/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_config/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_config/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_api/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

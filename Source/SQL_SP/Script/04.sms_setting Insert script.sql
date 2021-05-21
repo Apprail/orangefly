@@ -1,7 +1,8 @@
 
 
 
-
+truncate table sms_setting
+GO
 INSERT INTO  sms_setting (account_sid,auth_token,type,created_by,created_date,active,sender_mobile_no)
 SELECT 'ACc0f727c6ee9e461bbd8ac2e04506b4a8','a11620da285e9825323b62bb95bc6642','LIVE','BACKEND',GETDATE(),1,'+13203226026'
 UNION ALL 
