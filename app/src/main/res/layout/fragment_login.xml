@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:focusable="true"
         android:background="@color/white"
         android:focusableInTouchMode="true">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
-            android:id="@+id/login_image"
-            android:src="@drawable/splash_img"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textColor="@color/logo_orange">
+
+        </TextView>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            >
+            android:layout_marginTop="20dp">
 
             <EditText
                 android:layout_width="match_parent"
@@ -55,14 +60,35 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:id="@+id/btn_login"
-            android:text="Sign In"
-            android:layout_marginTop="30dp"/>
+            android:gravity="center">
 
+            <android.widget.Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="15dp"
+                android:background="@drawable/button_border"
+                android:id="@+id/btn_sign_up"
+                android:textColor="@color/logo_orange"
+                android:text="Join Orangefly"
+                />
+
+            <android.widget.Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="15dp"
+                android:background="@drawable/button"
+                android:textColor="@color/white"
+                android:id="@+id/btn_login"
+                android:text="Sign In"
+                android:layout_marginTop="30dp"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

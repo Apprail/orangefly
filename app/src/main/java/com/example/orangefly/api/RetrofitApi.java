@@ -15,4 +15,14 @@ public interface RetrofitApi {
             @Field("username") String username,
             @Field("password") String password
     );
+
+    @FormUrlEncoded
+    @POST("/sign_up/")
+    Call<DefaultResponse> sign_up(
+            @Field("firstname") String firstname,
+            @Field("lastname") String lastname,
+            @Field("mobile") String mobile,
+            @Field("email") String email,
+            @Field("password") String password
+    );
 }
