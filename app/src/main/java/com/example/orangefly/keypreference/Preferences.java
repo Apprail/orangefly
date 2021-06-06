@@ -10,7 +10,7 @@ public class Preferences {
 
 
 
-    public static Boolean readBoolean(Context context, String key, boolean value) {
+    public static Boolean readBoolean(Context context, String key) {
         mPrefs = context.getSharedPreferences(key,Context.MODE_PRIVATE);
         return mPrefs.getBoolean(key, false);
     }

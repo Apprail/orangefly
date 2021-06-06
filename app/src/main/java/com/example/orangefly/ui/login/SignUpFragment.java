@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.orangefly.R;
 import com.example.orangefly.api.RetrofitClient;
+import com.example.orangefly.keypreference.Preferences;
 import com.example.orangefly.models.DefaultResponse;
 
 import retrofit2.Call;
@@ -94,12 +95,15 @@ public class SignUpFragment extends Fragment {
                     DefaultResponse dr = response.body();
                     Log.d("Response",String.valueOf(response.body()));
                     if (dr.getStatus() == 1){
+                        Preferences.writeBoolean(context,"logged_in",true);
                         Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_SHORT).show();
                     }else{
+                        Preferences.writeBoolean(context,"logged_in",false);
                         Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 }catch (Exception e){
                     e.printStackTrace();
+                    Preferences.writeBoolean(context,"logged_in",false);
                     Log.d("Exception-------",String.valueOf(e));
                 }
             }
@@ -107,6 +111,7 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
                 progressDialog.dismiss();
+                Preferences.writeBoolean(context,"logged_in",false);
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });

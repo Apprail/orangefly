@@ -44,10 +44,12 @@ public class LoginFragment extends Fragment {
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCancelable(false);
-        Log.d("Shared Preference", String.valueOf(Preferences.readBoolean(context,"logged_in",false)));
+        //Log.d("Shared Preference", String.valueOf(Preferences.readBoolean(context,"logged_in")));
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //For test purpose start
+                //Preferences.writeBoolean(context,"logged_in",true);//For test purpose end
                 call_signin();
             }
         });
