@@ -42,7 +42,7 @@ public class StoreFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_store);
         textView.setText("All Categories");
         // initializing the slider view.
-            SliderView sliderView = root.findViewById(R.id.slider);
+        SliderView sliderView = root.findViewById(R.id.slider);
         // we are creating array list for storing our image urls.
         ArrayList<SliderBanner> sliderDataArrayList = new ArrayList<>();
         sliderDataArrayList.add(new SliderBanner("url",R.drawable.ofly_banner));
