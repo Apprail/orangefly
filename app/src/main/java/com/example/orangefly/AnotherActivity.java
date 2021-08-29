@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.orangefly.ui.login.LoginFragment;
+import com.example.orangefly.ui.prints.PrintFragment;
 
 public class AnotherActivity extends AppCompatActivity {
 
@@ -23,6 +24,9 @@ public class AnotherActivity extends AppCompatActivity {
         switch (item) {
             case "Login":
                 fragment = new LoginFragment();
+                break;
+            case "Prints":
+                fragment = new PrintFragment();
                 break;
 
         }

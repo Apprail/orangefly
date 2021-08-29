@@ -6,15 +6,15 @@
         android:icon="@drawable/ic_outline_home_24"
         android:title="@string/title_store" />
 
-    <item
-        android:id="@+id/navigation_photo"
-        android:icon="@drawable/ic_outline_image_24"
-        android:title="@string/title_photo" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_photo"-->
+<!--        android:icon="@drawable/ic_outline_image_24"-->
+<!--        android:title="@string/title_photo" />-->
 
-    <item
-        android:id="@+id/navigation_upload"
-        android:icon="@drawable/ic_outline_cloud_upload_24"
-        android:title="@string/title_upload" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_upload"-->
+<!--        android:icon="@drawable/ic_outline_cloud_upload_24"-->
+<!--        android:title="@string/title_upload" />-->
 
     <item
         android:id="@+id/navigation_account"

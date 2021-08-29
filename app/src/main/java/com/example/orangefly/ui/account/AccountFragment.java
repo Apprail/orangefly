@@ -42,18 +42,18 @@ public class AccountFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_account, container, false);
         listView = (ListView)root.findViewById(R.id.account_list);
         listItems = new ArrayList<AccountListItems>();
-        listItems.add(new AccountListItems(R.drawable.icon_project,
-                                            "Saved Projects",
-                                            "Edit and reorder your projects"));
+//        listItems.add(new AccountListItems(R.drawable.icon_project,
+//                                            "Saved Projects",
+//                                            "Edit and reorder your projects"));
         listItems.add(new AccountListItems(R.drawable.icons_order_history,
                                             "Order History",
                                             "View your orders, tracking, etc"));
         listItems.add(new AccountListItems(R.drawable.icon_address_book,
                                             "Address Book",
                                             "Add and edit your saved addresses"));
-        listItems.add(new AccountListItems(R.drawable.icon_connected_accounts,
-                                            "Connected Accounts",
-                                            "Facebook, Instagram, Google Photos"));
+//        listItems.add(new AccountListItems(R.drawable.icon_connected_accounts,
+//                                            "Connected Accounts",
+//                                            "Facebook, Instagram, Google Photos"));
         listItems.add(new AccountListItems(R.drawable.icon_help,
                                             "Help Center & Support",
                                             "Help articles and FAQs"));
