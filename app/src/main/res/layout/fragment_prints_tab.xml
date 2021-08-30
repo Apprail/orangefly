@@ -6,13 +6,12 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:cardCornerRadius="10dp"
         android:layout_margin="15dp"
-        android:elevation="0dp">
+        >
 
         <ImageView
             android:id="@+id/banner_img"
@@ -30,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="15dp"
-        >
+        android:background="@drawable/rounded_corners">
 
     </ListView>
 

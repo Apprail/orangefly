@@ -46,22 +46,22 @@ public class CustomGridViewActivity extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-        View gridViewAndroid;
+        //View gridViewAndroid;
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-
-            gridViewAndroid = new View(mContext);
-            gridViewAndroid = inflater.inflate(R.layout.store_grid_single, null);
-            TextView textViewAndroid = (TextView) gridViewAndroid.findViewById(R.id.grid_text);
-            ImageView imageViewAndroid = (ImageView) gridViewAndroid.findViewById(R.id.grid_image);
-            textViewAndroid.setText(gridViewString[i]);
-            imageViewAndroid.setImageResource(gridViewImageId[i]);
-        } else {
-            gridViewAndroid = (View) convertView;
+            //gridViewAndroid = new View(mContext);
+            convertView = inflater.inflate(R.layout.store_grid_single, null);            
         }
+        TextView textViewAndroid = (TextView) convertView.findViewById(R.id.grid_text);
+        ImageView imageViewAndroid = (ImageView) convertView.findViewById(R.id.grid_image);
+        textViewAndroid.setText(gridViewString[i]);
+        imageViewAndroid.setImageResource(gridViewImageId[i]);
+//        else {
+//            gridViewAndroid = (View) convertView;
+//        }
 
-        return gridViewAndroid;
+        return convertView;
     }
 }

@@ -36,14 +36,12 @@ public class PrintFragment extends Fragment {
 //        tabLayout.addTab(tabLayout.newTab().setText("Albums"));
 //        tabLayout.addTab(tabLayout.newTab().setText("Favourites"));
 //        tabLayout.addTab(tabLayout.newTab().setText("Memories"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
 
         //Initializing viewPager
         viewPager = root.findViewById(R.id.prints_pager);
         adapter = new Prints_Pager(getParentFragmentManager() , tabLayout.getTabCount());
-
-
-        viewPagerLayout.setVisibility(View.VISIBLE);
+        //viewPagerLayout.setVisibility(View.VISIBLE);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -55,7 +53,7 @@ public class PrintFragment extends Fragment {
             tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
             tabLayout.setTabIndicatorFullWidth(false);
         }
-
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
