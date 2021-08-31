@@ -1,4 +1,3 @@
-
 IF OBJECT_ID('usp_logout') IS NOT NULL
 DROP PROC usp_logout
 GO
@@ -20,7 +19,7 @@ BEGIN
 
 	SET NOCOUNT ON;
 
-	IF NOT EXISTS (SELECT [user_id] FROM users where active=1 and (email_id=@_username OR mobile_no=@_username) and salt=@_salt)
+	IF NOT EXISTS (SELECT [user_id] FROM users where active=1 and (email_id=@_username OR mobile_no=@_username OR user_id=@_username) and salt=@_salt)
 	BEGIN
 		SELECT '0' status,'You are not authorized user' message ,'' [user_id],'' username , '' salt
 		
@@ -31,7 +30,7 @@ BEGIN
 		UPDATE users set salt='' where active=1 and  (mobile_no=@_username OR email_id =@_username) and salt=@_salt
 		DECLARE @PK_ID bigint
 
-		SET @_username = (SELECT [user_id] FROM users where active=1 and (email_id=@_username OR mobile_no=@_username ) )
+		SET @_username = (SELECT [user_id] FROM users where active=1 and (email_id=@_username OR mobile_no=@_username OR user_id=@_username) )
 
 		SELECT TOP 1 @PK_ID=PK_ID FROM login where fk_user_id=@_username order by PK_ID desc
 
@@ -41,4 +40,3 @@ BEGIN
 	END
 	 
 END
-

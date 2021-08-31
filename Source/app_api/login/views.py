@@ -167,6 +167,7 @@ def logout(request):
             db = db_connection()
             username = request.POST.get('username')
             salt = request.POST.get('salt')
+            print(username,salt)
             # mix_query = """sp_GetGenealogyReportDetails '{curing_lot}'""".format(curing_lot=curing_lot)
             # check_user_query = """select * from users where user_id = '{uid}' and password = '{salt}'
             #             """.format(uid=username, pwd=password)
@@ -174,7 +175,7 @@ def logout(request):
             db.execute(check_user_query)
             check_user = db.fetchall()
             db.close()
-            # print(check_user)
+            print("check_user",check_user)
             arr = []
             if check_user:
                 returnvals['status'] = 1
