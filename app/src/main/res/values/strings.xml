@@ -8,6 +8,11 @@
     <string name="title_home">All Categories</string>
     <string name="registered_email_id">Please enter your Registered Email Id below : </string>
     <string name="forget_otp">Please enter OTP</string>
+    <string name="empty_cart">Looks like your cart is empty</string>
+    <string name="continue_cart">Continue Shopping</string>
+    <string name="greetings_text">Hello  </string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_out"><u>Sign out</u></string>
     <string name="email">Email Id</string>
     <string name="submit">Submit</string>
     <string name="hint_email">Email</string>

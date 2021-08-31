@@ -17,6 +17,13 @@ public interface RetrofitApi {
     );
 
     @FormUrlEncoded
+    @POST("/logout/")
+    Call<DefaultResponse> logout(
+            @Field("username") String username,
+            @Field("salt") String salt
+    );
+
+    @FormUrlEncoded
     @POST("/sign_up/")
     Call<DefaultResponse> sign_up(
             @Field("firstname") String firstname,

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.upload.CartFragment"
+    tools:context=".ui.cart.CartFragment"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="50dp">
@@ -13,31 +12,33 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/icon_shopping_cart"/>
+        android:id="@+id/cart_empty_img"
+        android:src="@drawable/icon_shopping_cart"
+        android:contentDescription="@string/empty_cart" />
 
     <TextView
-        android:id="@+id/text_notifications"
+        android:id="@+id/cart_empty_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:textSize="15sp"
-        android:text="Looks like your cart is empty"
+        android:text="@string/empty_cart"
         android:textAlignment="center"
         android:gravity="center_horizontal"/>
 
     <Button
-        android:id="@+id/btn_signin"
+        android:id="@+id/btn_cart_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:text="Sign in"
+        android:text="@string/sign_in"
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/btn_shopping"
+        android:id="@+id/btn_cart_shopping"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:text="Start Shopping"
+        android:text="@string/continue_cart"
         android:textAlignment="center" />
 </LinearLayout>

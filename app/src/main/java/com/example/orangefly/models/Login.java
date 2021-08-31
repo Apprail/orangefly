@@ -1,13 +1,32 @@
 package com.example.orangefly.models;
 
 public class Login {
-    private String auth_token;
 
-    public String getAuth_token() {
-        return auth_token;
+    private String username;
+    private String name;
+    private String salt;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setAuth_token(String auth_token) {
-        this.auth_token = auth_token;
+    public String getName() {
+        return name;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

@@ -22,6 +22,9 @@ import com.example.orangefly.models.DefaultResponse;
 import com.example.orangefly.api.RetrofitClient;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
+
+import java.util.Iterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,9 +85,19 @@ public class LoginFragment extends Fragment {
                 progressDialog.dismiss();
                 try{
                     DefaultResponse dr = response.body();
-                    Log.d("Response",String.valueOf(response.body()));
+                    assert dr != null;
                     if (dr.getStatus() == 1){
                         Preferences.writeBoolean(context,"logged_in",true);
+                        Log.wtf("dr.getParams().size()", String.valueOf(dr.getParams().size()));
+                        for(int i=0; i<dr.getParams().size(); i++){
+                            Log.wtf("Abdul", String.valueOf(dr.getParams().get(i).getUsername()));
+                            Log.wtf("Abdul", String.valueOf(dr.getParams().get(i).getName()));
+                            Log.wtf("Abdul", String.valueOf(dr.getParams().get(i).getSalt()));
+                            Preferences.writeString(context,"username",dr.getParams().get(i).getUsername());
+                            Preferences.writeString(context,"name",dr.getParams().get(i).getName());
+                            Preferences.writeString(context,"salt",dr.getParams().get(i).getSalt());
+                        }
+                        getActivity().onBackPressed();
                         Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_SHORT).show();
                     }else{
                         Preferences.writeBoolean(context,"logged_in",false);
