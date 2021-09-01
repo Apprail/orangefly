@@ -5,6 +5,7 @@ public class Login {
     private String username;
     private String name;
     private String salt;
+    private String email;
 
     public String getUsername() {
         return username;
@@ -28,5 +29,13 @@ public class Login {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

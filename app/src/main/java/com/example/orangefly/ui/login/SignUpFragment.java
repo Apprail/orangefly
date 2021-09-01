@@ -93,10 +93,17 @@ public class SignUpFragment extends Fragment {
                 progressDialog.dismiss();
                 try{
                     DefaultResponse dr = response.body();
-                    Log.d("Response",String.valueOf(response.body()));
+                    //Log.d("Response",String.valueOf(response.body()));
                     if (dr.getStatus() == 1){
                         Preferences.writeBoolean(context,"logged_in",true);
+                        for(int i=0; i<dr.getParams().size(); i++){
+                            Preferences.writeString(context,"username",dr.getParams().get(i).getUsername());
+                            Preferences.writeString(context,"name",dr.getParams().get(i).getName());
+                            Preferences.writeString(context,"salt",dr.getParams().get(i).getSalt());
+                            Preferences.writeString(context,"email",dr.getParams().get(i).getEmail());
+                        }
                         Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_SHORT).show();
+                        getActivity().onBackPressed();
                     }else{
                         Preferences.writeBoolean(context,"logged_in",false);
                         Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_LONG).show();

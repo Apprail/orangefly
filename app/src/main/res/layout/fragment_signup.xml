@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:focusable="true"
+    android:layout_margin="10dp"
     android:background="@color/white"
     android:focusableInTouchMode="true">
 
@@ -20,8 +21,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_firstname"
             android:background="@color/white"
-            android:hint="First Name"
+            android:hint="@string/hint_first_name"
             android:imeOptions="actionNext"
+            android:importantForAutofill="no"
             android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -35,8 +37,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_lastname"
             android:background="@color/white"
-            android:hint="Last Name"
+            android:hint="@string/hint_last_name"
             android:imeOptions="actionNext"
+            android:importantForAutofill="no"
             android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,8 +53,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_mobile"
             android:background="@color/white"
-            android:hint="Mobile"
+            android:hint="@string/hint_mobile"
             android:imeOptions="actionNext"
+            android:importantForAutofill="no"
             android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,8 +69,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_email"
             android:background="@color/white"
-            android:hint="Email"
+            android:hint="@string/hint_email"
             android:imeOptions="actionNext"
+            android:importantForAutofill="no"
             android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,9 +86,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_password"
             android:background="@color/white"
-            android:hint="Password"
+            android:hint="@string/hint_pwd"
             android:imeOptions="actionDone"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:importantForAutofill="no"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <android.widget.Button
@@ -94,7 +100,7 @@
         android:id="@+id/btn_sign_up_join"
         android:background="@color/logo_orange"
         android:textColor="@color/white"
-        android:text="Join Orangefly"
+        android:text="@string/sign_up"
         />
 
 </LinearLayout>

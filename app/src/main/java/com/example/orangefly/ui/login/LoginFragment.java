@@ -2,6 +2,7 @@ package com.example.orangefly.ui.login;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -11,11 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.orangefly.AnotherActivity;
 import com.example.orangefly.R;
 import com.example.orangefly.keypreference.Preferences;
 import com.example.orangefly.models.DefaultResponse;
@@ -32,8 +36,9 @@ import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
 
-    EditText username,password;
-    Button signin;
+    EditText username, password;
+    TextView forget_pwd;
+    Button sign_in, sign_up;
     Context context;
     ProgressDialog progressDialog;
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -43,17 +48,31 @@ public class LoginFragment extends Fragment {
         context = getActivity();
         username = root.findViewById(R.id.username);
         password = root.findViewById(R.id.password);
-        signin = root.findViewById(R.id.btn_login);
+        forget_pwd = root.findViewById(R.id.forget_pwd);
+        sign_in = root.findViewById(R.id.btn_login);
+        sign_up = root.findViewById(R.id.btn_sign_up);
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCancelable(false);
         //Log.d("Shared Preference", String.valueOf(Preferences.readBoolean(context,"logged_in")));
-        signin.setOnClickListener(new View.OnClickListener() {
+        sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //For test purpose start
                 //Preferences.writeBoolean(context,"logged_in",true);//For test purpose end
                 call_signin();
+            }
+        });
+
+        sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment signUpFragment = new SignUpFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.another_frame, signUpFragment ); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
+                getActivity().setTitle(R.string.sign_up);
             }
         });
         return root;
@@ -88,17 +107,14 @@ public class LoginFragment extends Fragment {
                     assert dr != null;
                     if (dr.getStatus() == 1){
                         Preferences.writeBoolean(context,"logged_in",true);
-                        Log.wtf("dr.getParams().size()", String.valueOf(dr.getParams().size()));
+                        //Log.wtf("dr.getParams().size()", String.valueOf(dr.getParams().size()));
                         for(int i=0; i<dr.getParams().size(); i++){
-                            Log.wtf("Abdul", String.valueOf(dr.getParams().get(i).getUsername()));
-                            Log.wtf("Abdul", String.valueOf(dr.getParams().get(i).getName()));
-                            Log.wtf("Abdul", String.valueOf(dr.getParams().get(i).getSalt()));
                             Preferences.writeString(context,"username",dr.getParams().get(i).getUsername());
                             Preferences.writeString(context,"name",dr.getParams().get(i).getName());
                             Preferences.writeString(context,"salt",dr.getParams().get(i).getSalt());
                         }
-                        getActivity().onBackPressed();
                         Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_SHORT).show();
+                        getActivity().onBackPressed();
                     }else{
                         Preferences.writeBoolean(context,"logged_in",false);
                         Toast.makeText(getContext(),dr.getMessage(),Toast.LENGTH_LONG).show();

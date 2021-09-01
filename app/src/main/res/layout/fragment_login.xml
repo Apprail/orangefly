@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
                 android:background="@color/white"
-                android:hint="Email/Mobile"
+                android:hint="@string/hint_email_pwd"
                 android:imeOptions="actionNext"
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/password"
                 android:background="@color/white"
-                android:hint="Password"
+                android:hint="@string/hint_pwd"
                 android:inputType="textPassword"
                 android:imeOptions="actionDone"
                 />
@@ -74,7 +74,7 @@
                 android:background="@drawable/button_border"
                 android:id="@+id/btn_sign_up"
                 android:textColor="@color/logo_orange"
-                android:text="Join Orangefly"
+                android:text="@string/sign_up"
                 />
 
             <android.widget.Button
@@ -85,7 +85,7 @@
                 android:background="@drawable/button"
                 android:textColor="@color/white"
                 android:id="@+id/btn_login"
-                android:text="Sign In"
+                android:text="@string/sign_in"
                 android:layout_marginTop="30dp"/>
 
         </LinearLayout>
@@ -94,7 +94,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Forgot Password?"
+            android:id="@+id/forget_pwd"
+            android:text="@string/forget_pwd"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall"/>
     </LinearLayout>

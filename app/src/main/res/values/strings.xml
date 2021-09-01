@@ -12,8 +12,15 @@
     <string name="continue_cart">Continue Shopping</string>
     <string name="greetings_text">Hello  </string>
     <string name="sign_in">Sign in</string>
+    <string name="sign_up">Join Orangefly</string>
+    <string name="forget_pwd">Forgot Password?</string>
     <string name="sign_out"><u>Sign out</u></string>
     <string name="email">Email Id</string>
     <string name="submit">Submit</string>
-    <string name="hint_email">Email</string>
+    <string name="hint_first_name">First Name<font color='#FF0000'> *</font></string>
+    <string name="hint_last_name">Last Name<font color='#FF0000'> *</font></string>
+    <string name="hint_mobile">Mobile<font color='#FF0000'> *</font></string>
+    <string name="hint_email">Email<font color='#FF0000'> *</font></string>
+    <string name="hint_pwd">Password<font color='#FF0000'> *</font></string>
+    <string name="hint_email_pwd">Email/Mobile<font color='#FF0000'> *</font></string>
 </resources>
