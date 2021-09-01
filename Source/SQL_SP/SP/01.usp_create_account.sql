@@ -49,7 +49,7 @@ SET @result = SUBSTRING(@chars, CAST((RAND() * LEN(@chars)) AS INT) + 1, 1)
 		,@mobileno,'U0001'
 
 		SELECT  '1' status,'Account created successfully' message 
-		, user_id ,first_name ,email_id,salt
+		, user_id ,CONCAT(first_name, ' ' ,last_name) username ,email_id,salt
 		--AS[params.user_id] 
 		
 		from users WHERE email_id=@email AND active=1 
@@ -59,14 +59,14 @@ SET @result = SUBSTRING(@chars, CAST((RAND() * LEN(@chars)) AS INT) + 1, 1)
 	ELSE IF  EXISTS (SELECT [user_id] FROM users WHERE mobile_no=@mobileno AND active=1)
 	BEGIN
 		SELECT '0' status,'This Mobile no. already exists in our system, Please use another' message
-		, '' [user_id],'' first_name ,'' email_id	,'' salt
+		, '' [user_id],'' username ,'' email_id	,'' salt
 		return 1
 	END
 	ELSE
 	BEGIN
 
 		SELECT '0' status,'This email already exists in our system, Please use another' message
-		, '' [user_id],'' first_name ,'' email_id	,'' salt
+		, '' [user_id],'' username ,'' email_id	,'' salt
 		--AS[params.user_id] 
 		
 		return 1

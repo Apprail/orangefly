@@ -72,11 +72,11 @@ def create_accounts(request):
     if request.method == "POST":
         try:
             db = db_connection()
-            firstname = request.POST.get('firstname')
-            lastname = request.POST.get('lastname')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            mobileno = request.POST.get('mobileno')
+            firstname = request.POST.get('firstname','')
+            lastname = request.POST.get('lastname','')
+            email = request.POST.get('email','')
+            password = request.POST.get('password','')
+            mobileno = request.POST.get('mobile','')
 
             check_user_query = """EXEC usp_create_account '{firstName}','{lastName}','{email}','{password}','{mobileno}'
                                 """.format(firstName=firstname, lastName=lastname, email=email, password=password,
@@ -90,7 +90,7 @@ def create_accounts(request):
                     create_account_returns['status'] = i[get_sql_column_index_ac("status")]
                     create_account_returns['message'] = i[get_sql_column_index_ac("message")]
                     arr.append({"username": i[get_sql_column_index_ac("user_id")],
-                                "firstname": i[get_sql_column_index_ac("first_name")],
+                                "name": i[get_sql_column_index_ac("username")],
                                 "email": i[get_sql_column_index_ac("email_id")],
                                 "salt": i[get_sql_column_index_ac("salt")]
                                 })
@@ -109,7 +109,7 @@ def get_sql_column_index_ac(column_name):
     mapping = {"status": 0,
                "message": 1,
                "user_id": 2,
-               "first_name": 3,
+               "username": 3,
                "email_id": 4,
                "salt": 5
                }

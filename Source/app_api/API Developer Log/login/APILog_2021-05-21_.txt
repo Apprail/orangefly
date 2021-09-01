@@ -1,7 +1,0 @@
-*****2021-05-21 11:05:02.006694*****
-Method:sendotp Line No:373:module 'app_api.settings' has no attribute 'ACCOUNT_SID'
-********************End***************************2021-05-21 11:05:38.730868*****
-Method:sendotp Line No:224:one_time_password() missing 1 required positional argument: 'sms_id'
-*********************End**************************2021-05-21 15:44:52.281549*****
-Method:sendotp Line No:373:module 'app_api.settings' has no attribute 'ACCOUNT_SID'
-*********************End*********************
