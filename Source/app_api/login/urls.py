@@ -8,8 +8,9 @@ urlpatterns = [
     path('login/', login_urls.login, name="login"),
     path('sign_up/', login_urls.create_accounts, name="create_accounts"),
     path('resetpassword/', login_urls.resetpassword, name="resetpassword"),
+    path('forgetpassword/', login_urls.forgetpassword, name="forgetpassword"),
     path('logout/', login_urls.logout, name="logout"),
-    path('sendotp/', login_urls.sendotp, name="sendotp"),
+    #path('sendotp/', login_urls.sendotp, name="sendotp"),
     path('verifyotp/', login_urls.verifyotp, name="verifyotp"),
 
 

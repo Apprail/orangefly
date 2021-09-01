@@ -195,52 +195,82 @@ def logout(request):
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             developerLog("login", "Method:logout Line No:" + str(exc_tb.tb_lineno), str(e))
-
     return HttpResponse(json.dumps(returnvals))
 
 
 @csrf_exempt
-def sendotp(request):
+def forgetpassword(request):
     returnvals = {"status": 0, "message": "", "params": {}}
     if request.method == "POST":
-
         try:
-            username = request.POST.get('username')
-            otp_type = request.POST.get('otp_type')
-            mode = str(1)
-
+            user_input = request.POST.get('user_input','')
+            otp_type = request.POST.get('otp_type','forgetpassword')
+            mode = "1"
             db = db_connection()
-
-            check_user_query_User = """select user_id from users where mobile_no = '{uid}' and active = '1'
-                                                           """.format(uid=username)
+            check_user_query_User = """select mobile_no from users where (mobile_no = '{mobile_no}' 
+                                        or email_id = '{email_id}') and active = 1
+                                    """.format(mobile_no=user_input,email_id=user_input)
             db.execute(check_user_query_User)
-            check_user_ = db.fetchall()
+            check_user = db.fetchall()
             db.close()
-
-            if not check_user_:
-                returnvals["message"] = "You are not authorized user"
-                return HttpResponse(json.dumps(returnvals))
-
-            # smsid = request.POST.get('smsid')
-            returnvals = one_time_password(settings.SMS_SETTING, username, otp_type, mode, '')
-            print(returnvals)
+            mobile_no = ""
+            if check_user:
+                for i in check_user:
+                    mobile_no = i[0]
+                returnvals = one_time_password(settings.SMS_SETTING, mobile_no, otp_type, mode, '')
+                print(mobile_no)
+            else:
+                returnvals['message'] = "Email/Mobile is invalid.Please provide valid input"
 
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            developerLog("login", "Method:sendotp Line No:" + str(exc_tb.tb_lineno), str(e))
+            developerLog("login", "Method:forgetpassword Line No:" + str(exc_tb.tb_lineno), str(e))
 
     return HttpResponse(json.dumps(returnvals))
 
 
-def one_time_password(input, username, otp_type, mode, sms_id):
-    try:
+# @csrf_exempt
+# def sendotp(request):
+#     returnvals = {"status": 0, "message": "", "params": {}}
+#     if request.method == "POST":
+#
+#         try:
+#             username = request.POST.get('username')
+#             otp_type = request.POST.get('otp_type')
+#             mode = str(1)
+#
+#             db = db_connection()
+#
+#             check_user_query_User = """select user_id from users where mobile_no = '{uid}' and active = '1'
+#                                                            """.format(uid=username)
+#             db.execute(check_user_query_User)
+#             check_user_ = db.fetchall()
+#             db.close()
+#
+#             if not check_user_:
+#                 returnvals["message"] = "You are not authorized user"
+#                 return HttpResponse(json.dumps(returnvals))
+#
+#             # smsid = request.POST.get('smsid')
+#             returnvals = one_time_password(settings.SMS_SETTING, username, otp_type, mode, '')
+#             print(returnvals)
+#
+#         except Exception as e:
+#             exc_type, exc_obj, exc_tb = sys.exc_info()
+#             developerLog("login", "Method:sendotp Line No:" + str(exc_tb.tb_lineno), str(e))
+#
+#     return HttpResponse(json.dumps(returnvals))
 
-        returnvals = {"status": 0, "message": "", "params": {}}
+
+def one_time_password(input, username, otp_type, mode, sms_id):
+    returnvals = {"status": 0, "message": "", "params": {}}
+
+    try:
 
         db = db_connection()
 
         check_user_query_sms = """select account_sid,auth_token,sender_mobile_no from sms_setting where type = '{type}' 
-                                    and active = '1'""".format(type=input)
+                                    and active = 1""".format(type=input)
 
         print(check_user_query_sms)
         db.execute(check_user_query_sms)
@@ -279,7 +309,6 @@ def one_time_password(input, username, otp_type, mode, sms_id):
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
         developerLog("login", "Method:one_time_password Line No:" + str(exc_tb.tb_lineno), str(e))
-
     return returnvals
 
 
@@ -332,9 +361,9 @@ def verifyotp(request):
     returnvals = {"status": 0, "message": "", "params": {}}
     if request.method == "POST":
         try:
-            username = request.POST.get('username')
-            otpcode = request.POST.get('otpcode')
-            otp_type = request.POST.get('otp_type')
+            username = request.POST.get('mobile','')
+            otpcode = request.POST.get('otpcode','')
+            otp_type = request.POST.get('otp_type','')
             mode = str(2)
             smsid = request.POST.get('smsid')
             db = db_connection()
@@ -375,7 +404,7 @@ def verifyotp(request):
                     db = db_connection()
 
                     check_user_query_sms = """select account_sid,auth_token,sender_mobile_no from sms_setting where type = '{type}' 
-                                                and active = '1'""".format(type=settings.SMS_SETTING)
+                                                and active = 1""".format(type=settings.SMS_SETTING)
 
                     print(check_user_query_sms)
                     db.execute(check_user_query_sms)
