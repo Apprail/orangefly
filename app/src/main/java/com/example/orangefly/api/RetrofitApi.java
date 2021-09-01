@@ -32,4 +32,19 @@ public interface RetrofitApi {
             @Field("email") String email,
             @Field("password") String password
     );
+
+    @FormUrlEncoded
+    @POST("/forgetpassword/")
+    Call<DefaultResponse> forgetpassword(
+            @Field("user_input") String user_input,
+            @Field("otp_type") String otp_type
+    );
+
+    @FormUrlEncoded
+    @POST("/verifyotp/")
+    Call<DefaultResponse> verifyotp(
+            @Field("mobile") String mobile,
+            @Field("otpcode") String otpcode,
+            @Field("otp_type") String otp_type
+    );
 }

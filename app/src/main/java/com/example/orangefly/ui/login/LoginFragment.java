@@ -75,6 +75,18 @@ public class LoginFragment extends Fragment {
                 getActivity().setTitle(R.string.sign_up);
             }
         });
+
+        forget_pwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment forgetPassword = new ForgetPassword();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.another_frame, forgetPassword); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
+                getActivity().setTitle(R.string.forget_pwd);
+            }
+        });
         return root;
     }
 
