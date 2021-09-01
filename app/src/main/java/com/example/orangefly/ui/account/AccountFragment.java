@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -96,6 +97,18 @@ public class AccountFragment extends Fragment {
             signed_layout.setVisibility(View.GONE);
             username.setText("");
         }
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String selected_item = listItems.get(i).getParent_text();
+                if(selected_item.contains("Address Book")){
+                    Intent intent = new Intent(getActivity(), AnotherActivity.class);
+                    intent.putExtra("item","Address Book");
+                    startActivity(intent);
+                }
+            }
+        });
 
         sign_out.setOnClickListener(new View.OnClickListener() {
             @Override

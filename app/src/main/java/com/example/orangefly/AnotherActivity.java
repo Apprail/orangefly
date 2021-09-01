@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.orangefly.ui.address.AddressFragment;
 import com.example.orangefly.ui.login.LoginFragment;
 import com.example.orangefly.ui.login.SignUpFragment;
 import com.example.orangefly.ui.prints.PrintFragment;
@@ -31,6 +32,9 @@ public class AnotherActivity extends AppCompatActivity {
                 break;
             case "Prints":
                 fragment = new PrintFragment();
+                break;
+            case "Address Book":
+                fragment = new AddressFragment();
                 break;
 
         }

@@ -23,4 +23,11 @@
     <string name="hint_email">Email<font color='#FF0000'> *</font></string>
     <string name="hint_pwd">Password<font color='#FF0000'> *</font></string>
     <string name="hint_email_pwd">Email/Mobile<font color='#FF0000'> *</font></string>
+    <string name="hint_address_type">Address Type (Eg: Home, Office, etc)<font color='#FF0000'> *</font></string>
+    <string name="hint_address_name">Name<font color='#FF0000'> *</font></string>
+    <string name="hint_address_building">Door No., Flat No., Building Name, etc<font color='#FF0000'> *</font></string>
+    <string name="hint_address_street">Street, Nagar, etc<font color='#FF0000'> *</font></string>
+    <string name="hint_address_area">Area<font color='#FF0000'> *</font></string>
+    <string name="hint_address_city">City<font color='#FF0000'> *</font></string>
+    <string name="hint_address_postal">Postal Code<font color='#FF0000'> *</font></string>
 </resources>

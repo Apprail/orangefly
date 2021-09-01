@@ -37,6 +37,19 @@
                 <action android:name="android.intent.action.MenuMang" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ActivitySecond"
+            android:label="Menu Item"
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MenuMang" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
