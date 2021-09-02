@@ -22,7 +22,7 @@ public class ActivitySecond extends AppCompatActivity {
         Fragment fragments = null;
 
         switch (items) {
-            case "Shipping Address":
+            case "Shipment Address":
             case "Add Address":
                 fragments = new AddAddressFragment();
                 break;
