@@ -34,6 +34,7 @@ public class ActivitySecond extends AppCompatActivity {
             fragmentTransaction.commit();
         }
         setTitle(" "+items);
+
     }
 
     @Override
