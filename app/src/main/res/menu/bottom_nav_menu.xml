@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_store"
-        android:icon="@drawable/ic_outline_home_24"
+        android:icon="@drawable/selector_store"
         android:title="@string/title_store" />
 
 <!--    <item-->
@@ -18,11 +18,11 @@
 
     <item
         android:id="@+id/navigation_account"
-        android:icon="@drawable/ic_outline_account_circle_24"
+        android:icon="@drawable/selector_account"
         android:title="@string/title_account" />
 
     <item
         android:id="@+id/navigation_cart"
-        android:icon="@drawable/ic_outline_shopping_cart_24"
+        android:icon="@drawable/selector_cart"
         android:title="@string/title_cart" />
 </menu>
