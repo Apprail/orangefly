@@ -102,7 +102,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected_item = listItems.get(i).getParent_text();
-                if(selected_item.contains("Address Book")){
+                if(selected_item.contains("My Address")){
                     Intent intent = new Intent(getActivity(), AnotherActivity.class);
                     intent.putExtra("item","Address Book");
                     startActivity(intent);
