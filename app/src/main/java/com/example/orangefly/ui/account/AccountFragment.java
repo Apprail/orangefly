@@ -70,19 +70,19 @@ public class AccountFragment extends Fragment {
 //        listItems.add(new AccountListItems(R.drawable.icon_project,
 //                                            "Saved Projects",
 //                                            "Edit and reorder your projects"));
-        listItems.add(new AccountListItems(R.drawable.icons_order_history,
+        listItems.add(new AccountListItems(R.drawable.outline_list_alt_24,
                                             "Order History",
                                             "View your orders, tracking, etc"));
-        listItems.add(new AccountListItems(R.drawable.icon_address_book,
-                                            "Address Book",
+        listItems.add(new AccountListItems(R.drawable.outline_my_location_24,
+                                            "My Address",
                                             "Add and edit your saved addresses"));
 //        listItems.add(new AccountListItems(R.drawable.icon_connected_accounts,
 //                                            "Connected Accounts",
 //                                            "Facebook, Instagram, Google Photos"));
-        listItems.add(new AccountListItems(R.drawable.icon_help,
+        listItems.add(new AccountListItems(R.drawable.outline_help_outline_24,
                                             "Help Center & Support",
                                             "Help articles and FAQs"));
-        listItems.add(new AccountListItems(R.drawable.icon_info,
+        listItems.add(new AccountListItems(R.drawable.outline_info_24,
                                             "About Orangefly",
                                             "Follow Orangefly and see our guarantee"));
         adapter = new CustomAccountListView(context,listItems);
