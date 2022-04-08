@@ -1,24 +1,24 @@
 package com.example.orangefly.ui.prints;
 
 public class PrintsListItems {
-    //private int icon;
+    private int icon;
     private String parent_text;
     //private String sub_text;
 
-    public PrintsListItems(String parent_text) {
-        //this.icon = icon;
+    public PrintsListItems(String parent_text, int icon) {
+        this.icon = icon;
         this.parent_text = parent_text;
         //this.sub_text = sub_text;
     }
 
 
-//    public int getIcon(){
-//        return icon;
-//    }
+    public int getIcon(){
+        return icon;
+    }
 
-//    public void setIcon(){
-//        this.icon = icon;
-//    }
+    public void setIcon(){
+        this.icon = icon;
+    }
 
     public String getParent_text(){
         return parent_text;

@@ -50,7 +50,7 @@ public class CustomPrintsListView extends BaseAdapter implements ListAdapter {
             view = inflater.inflate(R.layout.prints_listview,null);
             holder = new CustomPrintsListView.ViewHolder();
 
-            //holder.icon = (ImageView) view.findViewById(R.id.icon);
+            holder.icon = (ImageView) view.findViewById(R.id.icon);
             holder.title = (TextView) view.findViewById(R.id.prints_list_items);
             //holder.subtitle = (TextView) view.findViewById(R.id.subtitle);
 
@@ -58,7 +58,7 @@ public class CustomPrintsListView extends BaseAdapter implements ListAdapter {
         }else{
             holder=(CustomPrintsListView.ViewHolder)view.getTag();
         }
-        //holder.icon.setImageResource(itemsArrayList.get(position).getIcon());
+        holder.icon.setImageResource(itemsArrayList.get(position).getIcon());
         holder.title.setText(itemsArrayList.get(position).getParent_text());
         //holder.subtitle.setText(itemsArrayList.get(position).getSub_text());
 
@@ -67,7 +67,7 @@ public class CustomPrintsListView extends BaseAdapter implements ListAdapter {
 
     public static class ViewHolder{
 
-        //public ImageView icon;
+        public ImageView icon;
         public TextView title;
         //public TextView subtitle;
 

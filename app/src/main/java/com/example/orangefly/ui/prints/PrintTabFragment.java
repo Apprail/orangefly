@@ -28,8 +28,8 @@ public class PrintTabFragment  extends Fragment {
 
         listView = (ListView)root.findViewById(R.id.prints_list);
         listItems = new ArrayList<PrintsListItems>();
-        listItems.add(new PrintsListItems("4X4"));
-        listItems.add(new PrintsListItems("4X6"));
+        listItems.add(new PrintsListItems("4X4", R.mipmap.square));
+        listItems.add(new PrintsListItems("4X6", R.mipmap.rectangle));
         adapter = new CustomPrintsListView(context,listItems);
         listView.setAdapter(adapter);
         return root;

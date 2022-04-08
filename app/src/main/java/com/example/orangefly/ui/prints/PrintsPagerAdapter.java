@@ -5,13 +5,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 
-public class Prints_Pager extends FragmentStatePagerAdapter {
+public class PrintsPagerAdapter extends FragmentStatePagerAdapter {
 
     //integer to count number of tabs
     int tabCount;
 
     //Constructor to the class
-    public Prints_Pager(FragmentManager fm, int tabCount) {
+    public PrintsPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         //Initializing tab count
         this.tabCount= tabCount;

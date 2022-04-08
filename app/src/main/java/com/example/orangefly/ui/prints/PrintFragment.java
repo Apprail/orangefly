@@ -19,7 +19,7 @@ public class PrintFragment extends Fragment {
     //This is our viewPager
     private ViewPager viewPager;
     //Creating our pager adapter
-    Prints_Pager adapter;
+    PrintsPagerAdapter adapter;
     LinearLayout viewPagerLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,7 +40,7 @@ public class PrintFragment extends Fragment {
 
         //Initializing viewPager
         viewPager = root.findViewById(R.id.prints_pager);
-        adapter = new Prints_Pager(getParentFragmentManager() , tabLayout.getTabCount());
+        adapter = new PrintsPagerAdapter(getParentFragmentManager() , tabLayout.getTabCount());
         //viewPagerLayout.setVisibility(View.VISIBLE);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
