@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -32,6 +34,14 @@ public class PrintTabFragment  extends Fragment {
         listItems.add(new PrintsListItems("4X6", R.mipmap.rectangle));
         adapter = new CustomPrintsListView(context,listItems);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = (String) parent.getItemAtPosition(position);
+                Toast.makeText(context,selectedItem,Toast.LENGTH_SHORT).show();
+            }
+        });
         return root;
     }
     @Override
