@@ -1,6 +1,13 @@
 package com.example.orangefly.ui.prints;
 
+import android.Manifest;
+import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +16,19 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.orangefly.R;
-import com.example.orangefly.ui.prints.PrintsListItems;
-import com.example.orangefly.ui.prints.CustomPrintsListView;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 public class PrintTabFragment  extends Fragment {
     Context context;
@@ -38,12 +51,67 @@ public class PrintTabFragment  extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                Toast.makeText(context,selectedItem,Toast.LENGTH_SHORT).show();
+                String selectedItem = listItems.get(position).getParent_text();
+                if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+
+                }
+                Intent intent =  new Intent(Intent.ACTION_GET_CONTENT);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
             }
         });
         return root;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==1 && resultCode == RESULT_OK){
+            List<Bitmap> bitmaps = new ArrayList<>();
+            ClipData clipData = data.getClipData();
+            if(clipData != null){
+                for (int i=0; i<clipData.getItemCount(); i++){
+                    Uri imageUri = clipData.getItemAt(i).getUri();
+                    try {
+                        InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        bitmaps.add(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }else {
+                Uri imageUri = data.getData();
+                try {
+                    InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    bitmaps.add(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for(final Bitmap b : bitmaps){
+                        getActivity().runOnUiThread(new Runnable(){
+
+                            @Override
+                            public void run() {
+
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
     @Override
     public void onResume(){
         super.onResume();

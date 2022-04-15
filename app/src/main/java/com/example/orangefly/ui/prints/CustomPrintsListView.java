@@ -11,12 +11,10 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.orangefly.R;
-import com.example.orangefly.ui.account.AccountListItems;
-import com.example.orangefly.ui.account.CustomAccountListView;
 
 import java.util.ArrayList;
 
-public class CustomPrintsListView extends BaseAdapter implements ListAdapter {
+public class CustomPrintsListView extends BaseAdapter{
 
     private final Context context;
     private final ArrayList<PrintsListItems> itemsArrayList;
