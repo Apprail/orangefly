@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.orangefly.ui.address.AddAddressFragment;
+import com.example.orangefly.ui.prints.PreviewFragment;
+import com.example.orangefly.ui.prints.PrintFragment;
 
 
 public class ActivitySecond extends AppCompatActivity {
@@ -25,6 +27,9 @@ public class ActivitySecond extends AppCompatActivity {
             case "Shipment Address":
             case "Add Address":
                 fragments = new AddAddressFragment();
+                break;
+            case "Preview":
+                fragments = new PreviewFragment();
                 break;
 
         }

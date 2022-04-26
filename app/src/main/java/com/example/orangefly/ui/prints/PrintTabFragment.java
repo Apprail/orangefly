@@ -20,8 +20,10 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.orangefly.R;
+import com.example.orangefly.ui.login.SignUpFragment;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -35,6 +37,7 @@ public class PrintTabFragment  extends Fragment {
     ListView listView;
     ArrayList<PrintsListItems> listItems;
     CustomPrintsListView adapter;
+    ArrayList<Uri> imgArrayUri;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -43,10 +46,12 @@ public class PrintTabFragment  extends Fragment {
 
         listView = (ListView)root.findViewById(R.id.prints_list);
         listItems = new ArrayList<PrintsListItems>();
+        imgArrayUri = new ArrayList<Uri>();
         listItems.add(new PrintsListItems("4X4", R.mipmap.square));
         listItems.add(new PrintsListItems("4X6", R.mipmap.rectangle));
         adapter = new CustomPrintsListView(context,listItems);
         listView.setAdapter(adapter);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,38 +82,50 @@ public class PrintTabFragment  extends Fragment {
             if(clipData != null){
                 for (int i=0; i<clipData.getItemCount(); i++){
                     Uri imageUri = clipData.getItemAt(i).getUri();
-                    try {
-                        InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
-                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        bitmaps.add(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    imgArrayUri.add(imageUri);
+//                    try {
+//                        InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+//                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+//                        bitmaps.add(bitmap);
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }else {
                 Uri imageUri = data.getData();
-                try {
-                    InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    bitmaps.add(bitmap);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                imgArrayUri.add(imageUri);
+//                try {
+//                    InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+//                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+//                    bitmaps.add(bitmap);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
             }
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for(final Bitmap b : bitmaps){
-                        getActivity().runOnUiThread(new Runnable(){
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("selectedImage", imgArrayUri);
+            Fragment previewFragment = new PreviewFragment();
+            previewFragment.setArguments(bundle);
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.replace(R.id.activity_second_frame, previewFragment ); // give your fragment container id in first parameter
+            transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+            transaction.commit();
+            getActivity().setTitle("Preview");
 
-                            @Override
-                            public void run() {
-
-                            }
-                        });
-                    }
-                }
-            });
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    for(final Bitmap b : bitmaps){
+//                        getActivity().runOnUiThread(new Runnable(){
+//
+//                            @Override
+//                            public void run() {
+//
+//                            }
+//                        });
+//                    }
+//                }
+//            });
         }
     }
 
