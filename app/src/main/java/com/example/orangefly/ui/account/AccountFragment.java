@@ -173,6 +173,7 @@ public class AccountFragment extends Fragment {
         return root;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onResume(){
         super.onResume();

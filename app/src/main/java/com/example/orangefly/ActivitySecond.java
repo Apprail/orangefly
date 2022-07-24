@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.orangefly.ui.address.AddAddressFragment;
+import com.example.orangefly.ui.cart.CartFragment;
 import com.example.orangefly.ui.prints.PreviewFragment;
 import com.example.orangefly.ui.prints.PrintFragment;
 
@@ -25,16 +26,18 @@ public class ActivitySecond extends AppCompatActivity {
 
         switch (items) {
             case "Shipment Address":
+                break;
             case "Add Address":
                 fragments = new AddAddressFragment();
                 break;
-            case "Preview":
-                fragments = new PreviewFragment();
+            case "Cart":
+                fragments = new CartFragment();
                 break;
 
         }
         if (savedInstanceState == null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            assert fragments != null;
             fragmentTransaction.replace(R.id.activity_second_frame, fragments);
             fragmentTransaction.commit();
         }
@@ -47,11 +50,8 @@ public class ActivitySecond extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int ids = menuItem.getItemId();
-        switch (ids){
-            case android.R.id.home:
-                //moveTaskToBack(true);
-                finish();
-                break;
+        if (ids == android.R.id.home) {//moveTaskToBack(true);
+            finish();
         }
         return super.onOptionsItemSelected(menuItem);
     }

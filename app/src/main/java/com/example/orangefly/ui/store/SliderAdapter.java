@@ -17,7 +17,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
     // list for storing urls of images.
     private final List<SliderBanner> mSliderItems;
-    private Context mContext;
+    private final Context mContext;
 
     // Constructor
     public SliderAdapter(Context context, ArrayList<SliderBanner> sliderDataArrayList) {

@@ -1,47 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.cart.CartFragment"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="50dp">
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/cart_empty_img"
-        android:src="@drawable/outline_shopping_cart_24"
-        android:contentDescription="@string/empty_cart"
-        app:tint="@color/grey"/>
-
-    <TextView
-        android:id="@+id/cart_empty_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="15sp"
-        android:text="@string/empty_cart"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_cart_sign_in"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:text="@string/sign_in"
-        android:layout_marginTop="180px"
-        android:textAlignment="center" />
+        <ListView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:dividerHeight="0dp"/>
 
-    <Button
-        android:id="@+id/btn_cart_shopping"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="Total"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/checkout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="Check out"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout >
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:text="@string/continue_cart"
-        android:textAlignment="center" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="50dp"
+        android:visibility="gone"
+        android:id="@+id/default_panel">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/cart_empty_img"
+            android:src="@drawable/outline_shopping_cart_24"
+            android:contentDescription="@string/empty_cart"
+            app:tint="@color/grey"/>
+
+        <TextView
+            android:id="@+id/cart_empty_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="15sp"
+            android:text="@string/empty_cart"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/btn_cart_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/sign_in"
+            android:layout_marginTop="180px"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btn_cart_shopping"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/continue_cart"
+            android:textAlignment="center" />
+    </LinearLayout>
+
 </LinearLayout>

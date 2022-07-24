@@ -102,7 +102,7 @@ public class PrintTabFragment  extends Fragment {
             }
             customProgressDialog.dismiss();
             Intent intent = new Intent(getActivity(), ActivitySecond.class);
-            intent.putExtra("item","Preview");
+            intent.putExtra("item","Cart");
             startActivity(intent);
         }
         else {

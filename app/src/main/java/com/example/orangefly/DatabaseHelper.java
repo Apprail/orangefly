@@ -73,14 +73,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String sql = "SELECT * FROM " + DB_TABLE;
         Cursor cursor = db.rawQuery(sql, null, null);
         Log.d("Cursor_count", String.valueOf(cursor.getCount()));
-        if (cursor != null && cursor.getCount() > 0 ){
+        if (cursor.getCount() > 0){
             while (cursor.moveToNext()) {
                 String uri = cursor.getString(cursor.getColumnIndex("image_data"));
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(uri));
                 bitmaps.add(bitmap);
             }
         }
-        if (cursor != null && !cursor.isClosed()) {
+        if (!cursor.isClosed()) {
             cursor.close();
         }
 
