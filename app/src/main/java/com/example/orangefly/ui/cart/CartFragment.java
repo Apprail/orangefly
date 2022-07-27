@@ -79,7 +79,6 @@ public class CartFragment extends Fragment {
         for (int i = 0; i < preview_images.size(); i++) {
             //imageView.setImageBitmap(preview_images.get(i));
             listItems.add(new CartItems(preview_images.get(i), "Item", 120, 1, 1));
-            Log.e("Loop - " , String.valueOf(preview_images.get(i)));
 
         }
         cartAdapter = new CartAdapter(context, listItems);

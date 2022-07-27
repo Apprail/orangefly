@@ -68,11 +68,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Bitmap> getTheImage() throws IOException {
         ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
-        ArrayList<String> test = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "SELECT * FROM " + DB_TABLE;
         Cursor cursor = db.rawQuery(sql, null, null);
-        Log.d("Cursor_count", String.valueOf(cursor.getCount()));
         if (cursor.getCount() > 0){
             while (cursor.moveToNext()) {
                 String uri = cursor.getString(cursor.getColumnIndex("image_data"));

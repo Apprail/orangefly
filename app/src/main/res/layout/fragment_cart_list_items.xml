@@ -111,7 +111,7 @@
                     android:layout_marginTop="10dp"
                     >
                     <ImageView
-                        android:id="@+id/min"
+                        android:id="@+id/minus"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/minus"
