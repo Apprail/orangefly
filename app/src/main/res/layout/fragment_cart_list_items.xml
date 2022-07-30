@@ -90,6 +90,14 @@
                     android:text="250.00"
                     android:textColor="@color/textSub"
                     android:textSize="@dimen/textsub" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cart_db_id"
+                    >
+
+                </TextView>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

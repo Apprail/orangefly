@@ -3,7 +3,9 @@ package com.example.orangefly.ui.cart;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,11 +36,14 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CartFragment extends Fragment {
 
     ImageView empty_cart_img;
     TextView empty_cart_txt;
+    TextView cart_total;
     Button btn_cart_sign_in;
     Button btn_cart_shopping;
     Boolean is_logged_in = false;
@@ -46,7 +51,7 @@ public class CartFragment extends Fragment {
     ArrayList<CartItems> listItems;
     CartAdapter cartAdapter;
     ListView listView;
-    ArrayList<Bitmap> preview_images;
+    ArrayList<List> cart_details;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -57,6 +62,7 @@ public class CartFragment extends Fragment {
         empty_cart_txt = (TextView) root.findViewById(R.id.cart_empty_text);
         btn_cart_sign_in = (Button) root.findViewById(R.id.btn_cart_sign_in);
         btn_cart_shopping = (Button)root.findViewById(R.id.btn_cart_shopping);
+        cart_total = (TextView)root.findViewById(R.id.cart_total);
         assert context != null;
         is_logged_in = Preferences.readBoolean(context,"logged_in");
         listItems = new ArrayList<CartItems>();
@@ -71,17 +77,22 @@ public class CartFragment extends Fragment {
             btn_cart_sign_in.setVisibility(View.VISIBLE);
         }
 
-        try {
-            preview_images = databaseHelper.getTheImage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < preview_images.size(); i++) {
+        cart_details = databaseHelper.getAllCart();
+        Log.d("cart_detaisl", String.valueOf(cart_details));
+        for(List<String> list: cart_details){
+            String uri = list.get(1);
+            Bitmap bitmap;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(uri));
+                listItems.add(new CartItems(list.get(0), bitmap, "Item", list.get(3), list.get(2), list.get(4)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             //imageView.setImageBitmap(preview_images.get(i));
-            listItems.add(new CartItems(preview_images.get(i), "Item", 120, 1, 1));
 
         }
-        cartAdapter = new CartAdapter(context, listItems);
+//
+        cartAdapter = new CartAdapter(context, listItems, cart_total);
         listView.setAdapter(cartAdapter);
 
 
@@ -101,7 +112,7 @@ public class CartFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        cartAdapter = new CartAdapter(context, listItems);
+        cartAdapter = new CartAdapter(context, listItems, cart_total);
         listView.setAdapter(cartAdapter);
         is_logged_in = Preferences.readBoolean(context,"logged_in");
         if (is_logged_in){

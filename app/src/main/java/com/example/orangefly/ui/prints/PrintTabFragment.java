@@ -51,7 +51,7 @@ public class PrintTabFragment  extends Fragment {
         View root = inflater.inflate(R.layout.fragment_prints_tab, container, false);
         context = getActivity();
         databaseHelper = new DatabaseHelper(context);
-        databaseHelper.deleteAllRecords();
+        //databaseHelper.deleteAllRecords();
         customProgressDialog = new CustomProgressDialog(context);
         listView = (ListView)root.findViewById(R.id.prints_list);
         listItems = new ArrayList<PrintsListItems>();
@@ -94,11 +94,11 @@ public class PrintTabFragment  extends Fragment {
             if(clipData != null){
                 for (int i=0; i<clipData.getItemCount(); i++){
                     Uri imageUri = clipData.getItemAt(i).getUri();
-                    databaseHelper.addEntry(String.valueOf(imageUri));
+                    databaseHelper.addEntry(String.valueOf(imageUri),1,1,1);
                 }
             }else {
                 Uri imageUri = data.getData();
-                databaseHelper.addEntry(String.valueOf(imageUri));
+                databaseHelper.addEntry(String.valueOf(imageUri),1,1,1);
             }
             customProgressDialog.dismiss();
             Intent intent = new Intent(getActivity(), ActivitySecond.class);

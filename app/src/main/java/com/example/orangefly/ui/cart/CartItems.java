@@ -3,14 +3,16 @@ package com.example.orangefly.ui.cart;
 import android.graphics.Bitmap;
 
 public class CartItems {
+    private String id;
     private Bitmap icon;
     private String title_text;
-    private int price;
-    private int qty;
-    private int total;
+    private String price;
+    private String qty;
+    private String total;
 
 
-    public CartItems(Bitmap icon, String title_text, int price, int qty, int total) {
+    public CartItems(String id, Bitmap icon, String title_text, String price, String qty, String total) {
+        this.id = id;
         this.icon = icon;
         this.title_text = title_text;
         this.price = price;
@@ -26,12 +28,20 @@ public class CartItems {
         this.title_text = title_text;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Bitmap getIcon() {
@@ -42,19 +52,19 @@ public class CartItems {
         this.icon = icon;
     }
 
-    public int getQty() {
+    public String getQty() {
         return qty;
     }
 
-    public void setQty(int qty) {
+    public void setQty(String qty) {
         this.qty = qty;
     }
 
-    public int getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 }

@@ -20,10 +20,12 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
 
     private final Context context;
     private final ArrayList<CartItems> itemsArrayList;
+    public TextView cart_total;
 
-    public CartAdapter(Context context, ArrayList<CartItems> itemsArrayList) {
+    public CartAdapter(Context context, ArrayList<CartItems> itemsArrayList, TextView cart_total) {
         this.context = context;
         this.itemsArrayList = itemsArrayList;
+        this.cart_total = cart_total;
     }
 
     @Override
@@ -58,6 +60,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
             holder.selectedProductPrice = (TextView) view.findViewById(R.id.price);
             holder.selectedProductQty = (TextView) view.findViewById(R.id.qty);
             holder.selectedProductTotal = (TextView) view.findViewById(R.id.totalprice);
+            holder.cart_db_id = (TextView) view.findViewById(R.id.cart_db_id);
 
             view.setTag(holder);
         }else{
@@ -67,6 +70,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
         holder.selectedProductTitle.setText(itemsArrayList.get(position).getTitle_text());
         holder.selectedProductPrice.setText(String.valueOf(itemsArrayList.get(position).getPrice()));
         holder.selectedProductQty.setText(String.valueOf(itemsArrayList.get(position).getQty()));
+        holder.cart_db_id.setText(String.valueOf(itemsArrayList.get(position).getId()));
 
 
         int selected_price = Integer.parseInt(String.valueOf(holder.selectedProductPrice.getText()));
@@ -83,6 +87,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
                     holder.selectedProductQty.setText(String.valueOf(count));
                     holder.selectedProductTotal.setText(String.valueOf(priceCalculation(selected_price, count)));
                 }
+                updateprice();
             }
         });
 
@@ -95,6 +100,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
                     holder.selectedProductQty.setText(String.valueOf(count));
                     holder.selectedProductTotal.setText(String.valueOf(priceCalculation(selected_price, count)));
                 }
+                updateprice();
             }
         });
 
@@ -103,6 +109,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
             public void onClick(View v) {
                 itemsArrayList.remove(position);
                 notifyDataSetChanged();
+                updateprice();
             }
         });
         return view;
@@ -112,10 +119,19 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
         return price * qty;
     }
 
+    public void updateprice()
+    {
+        int sum=0,i;
+        for(i=0;i< itemsArrayList.size();i++)
+            sum=sum+(Integer.parseInt(itemsArrayList.get(i).getPrice())*Integer.parseInt(itemsArrayList.get(i).getQty()));
+
+        cart_total.setText(String.valueOf(sum));
+    }
+
     public static class ViewHolder{
 
         public ImageView selected_image, cart_plus_img, cart_minus_img, delete_item;
-        public TextView selectedProductTitle;
+        public TextView selectedProductTitle, cart_db_id;
         public TextView selectedProductPrice;
         public TextView selectedProductQty;
         public TextView selectedProductTotal;
