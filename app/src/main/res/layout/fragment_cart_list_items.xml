@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/cart_db_id"
-                    >
+                    android:visibility="gone">
 
                 </TextView>
             </LinearLayout>

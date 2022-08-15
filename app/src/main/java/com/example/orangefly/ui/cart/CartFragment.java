@@ -1,7 +1,9 @@
 package com.example.orangefly.ui.cart;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -58,28 +62,32 @@ public class CartFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_cart, container, false);
         context = getActivity();
-        empty_cart_img = (ImageView)root.findViewById(R.id.cart_empty_img);
+        empty_cart_img = (ImageView) root.findViewById(R.id.cart_empty_img);
         empty_cart_txt = (TextView) root.findViewById(R.id.cart_empty_text);
         btn_cart_sign_in = (Button) root.findViewById(R.id.btn_cart_sign_in);
-        btn_cart_shopping = (Button)root.findViewById(R.id.btn_cart_shopping);
-        cart_total = (TextView)root.findViewById(R.id.cart_total);
+        btn_cart_shopping = (Button) root.findViewById(R.id.btn_cart_shopping);
+        cart_total = (TextView) root.findViewById(R.id.cart_total);
         assert context != null;
-        is_logged_in = Preferences.readBoolean(context,"logged_in");
+        is_logged_in = Preferences.readBoolean(context, "logged_in");
         listItems = new ArrayList<CartItems>();
         listView = (ListView) root.findViewById(R.id.recycler_view);
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        cart_total.setText(String.valueOf(databaseHelper.getCartTotal()));
 
-
-        if (is_logged_in){
+        if (is_logged_in) {
             btn_cart_sign_in.setVisibility(View.GONE);
 
-        }else{
+        } else {
             btn_cart_sign_in.setVisibility(View.VISIBLE);
         }
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
+        }
         cart_details = databaseHelper.getAllCart();
-        Log.d("cart_detaisl", String.valueOf(cart_details));
-        for(List<String> list: cart_details){
+        for (List<String> list : cart_details) {
             String uri = list.get(1);
             Bitmap bitmap;
             try {
@@ -88,20 +96,18 @@ public class CartFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //imageView.setImageBitmap(preview_images.get(i));
 
         }
-//
+
         cartAdapter = new CartAdapter(context, listItems, cart_total);
         listView.setAdapter(cartAdapter);
-
 
         btn_cart_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 Intent intent = new Intent(getActivity(), AnotherActivity.class);
-                intent.putExtra("item","Login");
+                intent.putExtra("item", "Login");
                 startActivity(intent);
             }
         });
@@ -110,21 +116,21 @@ public class CartFragment extends Fragment {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         cartAdapter = new CartAdapter(context, listItems, cart_total);
         listView.setAdapter(cartAdapter);
-        is_logged_in = Preferences.readBoolean(context,"logged_in");
-        if (is_logged_in){
+        is_logged_in = Preferences.readBoolean(context, "logged_in");
+        if (is_logged_in) {
             btn_cart_sign_in.setVisibility(View.GONE);
 
-        }else{
+        } else {
             btn_cart_sign_in.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
     }
 }
