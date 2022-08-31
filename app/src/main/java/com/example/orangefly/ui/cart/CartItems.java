@@ -4,16 +4,16 @@ import android.graphics.Bitmap;
 
 public class CartItems {
     private String id;
-    private Bitmap icon;
+    private Bitmap img;
     private String title_text;
     private String price;
     private String qty;
     private String total;
 
 
-    public CartItems(String id, Bitmap icon, String title_text, String price, String qty, String total) {
+    public CartItems(String id, Bitmap img, String title_text, String price, String qty, String total) {
         this.id = id;
-        this.icon = icon;
+        this.img = img;
         this.title_text = title_text;
         this.price = price;
         this.qty = qty;
@@ -44,12 +44,12 @@ public class CartItems {
         this.id = id;
     }
 
-    public Bitmap getIcon() {
-        return icon;
+    public Bitmap getImg() {
+        return img;
     }
 
-    public void setIcon(Bitmap icon) {
-        this.icon = icon;
+    public void setImg(Bitmap img) {
+        this.img = img;
     }
 
     public String getQty() {

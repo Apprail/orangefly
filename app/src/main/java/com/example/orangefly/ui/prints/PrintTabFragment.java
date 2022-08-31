@@ -99,6 +99,13 @@ public class PrintTabFragment  extends Fragment {
             customProgressDialog.show();
             List<Bitmap> bitmaps = new ArrayList<>();
             ClipData clipData = data.getClipData();
+            if(clipData.getItemCount() > 10) {
+                customProgressDialog.dismiss();
+                Log.e("APP_TAG", "Greater than THRESHOLD.");
+                Toast.makeText(context, "You can select only 10 picture",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
             if(clipData != null){
                 for (int i=0; i<clipData.getItemCount(); i++){
                     Uri imageUri = clipData.getItemAt(i).getUri();

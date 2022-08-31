@@ -71,7 +71,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
         } else {
             holder = (CartAdapter.ViewHolder) view.getTag();
         }
-        holder.selected_image.setImageBitmap(itemsArrayList.get(position).getIcon());
+        holder.selected_image.setImageBitmap(itemsArrayList.get(position).getImg());
         holder.selectedProductTitle.setText(itemsArrayList.get(position).getTitle_text());
         holder.selectedProductPrice.setText(String.valueOf(itemsArrayList.get(position).getPrice()));
         holder.selectedProductQty.setText(String.valueOf(itemsArrayList.get(position).getQty()));

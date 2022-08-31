@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.orangefly.AnotherActivity;
+import com.example.orangefly.CustomProgressDialog;
 import com.example.orangefly.DatabaseHelper;
 import com.example.orangefly.R;
 import com.example.orangefly.keypreference.Preferences;
@@ -56,12 +57,13 @@ public class CartFragment extends Fragment {
     CartAdapter cartAdapter;
     ListView listView;
     ArrayList<List> cart_details;
-
+    CustomProgressDialog customProgressDialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_cart, container, false);
         context = getActivity();
+        customProgressDialog = new CustomProgressDialog(context);
         empty_cart_img = (ImageView) root.findViewById(R.id.cart_empty_img);
         empty_cart_txt = (TextView) root.findViewById(R.id.cart_empty_text);
         btn_cart_sign_in = (Button) root.findViewById(R.id.btn_cart_sign_in);
@@ -86,21 +88,27 @@ public class CartFragment extends Fragment {
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
         }
+        customProgressDialog.show();
         cart_details = databaseHelper.getAllCart();
-        for (List<String> list : cart_details) {
-            String uri = list.get(1);
-            Bitmap bitmap;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(uri));
-                listItems.add(new CartItems(list.get(0), bitmap, "Item", list.get(3), list.get(2), list.get(4)));
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (cart_details.size()>0){
+            for (List<String> list : cart_details) {
+                String uri = list.get(1);
+                Bitmap bitmap;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),
+                            Uri.parse(uri));
+                    listItems.add(new CartItems(list.get(0), bitmap, "Item", list.get(3),
+                            list.get(2), list.get(4)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
+            cartAdapter = new CartAdapter(context, listItems, cart_total);
+            listView.setAdapter(cartAdapter);
+            customProgressDialog.dismiss();
         }
+        customProgressDialog.dismiss();
 
-        cartAdapter = new CartAdapter(context, listItems, cart_total);
-        listView.setAdapter(cartAdapter);
 
         btn_cart_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
