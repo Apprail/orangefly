@@ -17,6 +17,7 @@
     <string name="sign_out"><u>Sign out</u></string>
     <string name="email">Email Id</string>
     <string name="submit">Submit</string>
+    <string name="reset">Reset Password</string>
     <string name="hint_first_name">First Name<font color='#FF0000'> *</font></string>
     <string name="hint_last_name">Last Name<font color='#FF0000'> *</font></string>
     <string name="hint_mobile">Mobile<font color='#FF0000'> *</font></string>
@@ -30,4 +31,7 @@
     <string name="hint_address_area">Area<font color='#FF0000'> *</font></string>
     <string name="hint_address_city">City<font color='#FF0000'> *</font></string>
     <string name="hint_address_postal">Postal Code<font color='#FF0000'> *</font></string>
+    <string name="hint_old_password">Old Password<font color='#FF0000'> *</font></string>
+    <string name="hint_new_password">New Password<font color='#FF0000'> *</font></string>
+    <string name="hint_confirm_password">Confirm Password<font color='#FF0000'> *</font></string>
 </resources>

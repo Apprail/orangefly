@@ -11,6 +11,7 @@ import com.example.orangefly.ui.address.AddressFragment;
 import com.example.orangefly.ui.login.LoginFragment;
 import com.example.orangefly.ui.login.SignUpFragment;
 import com.example.orangefly.ui.prints.PrintFragment;
+import com.example.orangefly.ui.profile.ProfileFragment;
 
 public class AnotherActivity extends AppCompatActivity {
 
@@ -36,6 +37,12 @@ public class AnotherActivity extends AppCompatActivity {
             case "Address Book":
                 fragment = new AddressFragment();
                 break;
+            case "Profile":
+                fragment = new ProfileFragment();
+                break;
+            default:
+                fragment = new AddressFragment();
+
 
         }
         if (savedInstanceState == null) {

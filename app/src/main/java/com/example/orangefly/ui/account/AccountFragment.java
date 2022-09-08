@@ -67,9 +67,9 @@ public class AccountFragment extends Fragment {
         progressDialog.setCancelable(false);
         listView = (ListView)root.findViewById(R.id.account_list);
         listItems = new ArrayList<AccountListItems>();
-//        listItems.add(new AccountListItems(R.drawable.icon_project,
-//                                            "Saved Projects",
-//                                            "Edit and reorder your projects"));
+        listItems.add(new AccountListItems(R.drawable.outline_account_circle_24,
+                                            "Profile",
+                                            "Edit your details"));
         listItems.add(new AccountListItems(R.drawable.outline_list_alt_24,
                                             "Order History",
                                             "View your orders, tracking, etc."));
@@ -102,11 +102,9 @@ public class AccountFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected_item = listItems.get(i).getParent_text();
-                if(selected_item.contains("My Address")){
-                    Intent intent = new Intent(getActivity(), AnotherActivity.class);
-                    intent.putExtra("item","Address Book");
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), AnotherActivity.class);
+                intent.putExtra("item",selected_item);
+                startActivity(intent);
             }
         });
 
